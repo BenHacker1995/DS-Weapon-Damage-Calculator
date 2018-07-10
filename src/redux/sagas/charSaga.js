@@ -2,10 +2,10 @@ import { call, put, takeLatest, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 // import createSagaMiddleware from 'redux-saga';
 
-function * newChar( action ) {
+function* newChar( action ) {
     try {
         const charResponse = yield call( axios.post, '/char', action.payload );
-        yield put({ type: 'NEW_CHAR' })
+        yield put({ type: 'FETCH_CHARS' })
     }
     catch ( error ) {
         console.log( 'Error in newChar', error );
@@ -22,7 +22,7 @@ function* charList( action ) {
 }
 
 function* charSaga() {
-    yield takeLatest( 'NEW_CHAR', newChar );
+    yield takeEvery( 'NEW_CHAR', newChar );
     yield takeEvery( 'FETCH_CHARS', charList );
 }
 

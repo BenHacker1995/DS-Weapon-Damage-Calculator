@@ -30,9 +30,10 @@ class CharCreate extends Component {
 
     newChar = event => {
         event.preventDefault();
-        this.props.dispatch( { type: 'NEW_CHAR', payload: this.state.newPlant });
+        this.props.dispatch( { type: 'NEW_CHAR', payload: this.state.char });
         this.setState({
             char: {
+                username: this.props.user.userName,
                 charname: '',
                 strength: 0,
                 dexterity: 0,
@@ -62,6 +63,7 @@ class CharCreate extends Component {
                     <input type='number' placeholder="Faith"
                     value={ this.state.char.faith }
                     onChange={ this.handleChange( 'faith' ) }/>
+                    <button onClick={ this.newChar }>Create Character</button>
                 </form>
             </div>
         )

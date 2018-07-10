@@ -21,8 +21,8 @@ router.post( '/', ( req, res, next ) => {
   const queryText = `INSERT INTO charlist
     ( username, charname, strength, dexterity, intelligence, faith )
     VALUES ( $1, $2, $3, $4, $5, $6 );`;
-  pool.query( queryText, [ req.body.username, req.body.charname, req.body.str,
-                    req.body.dex, req.body.int, req.body.faith ]) 
+  pool.query( queryText, [ req.body.username, req.body.charname, req.body.strength,
+                    req.body.dexterity, req.body.intelligence, req.body.faith ]) 
   .then( () => { res.sendStatus( 201 ); })
   .catch( (error) => {
     console.log( 'Error completing INSERT char query', error );

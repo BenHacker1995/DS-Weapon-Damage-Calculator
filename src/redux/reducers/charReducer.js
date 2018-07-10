@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 
 const char = ( state = [], action ) => {
     switch ( action.type ) {
-        case 'NEW_CHAR' : return [ ...state, ...action.payload];
+        case 'NEW_CHAR' : state.push( action.payload );
+        return state;
         case 'FETCH_CHARS' : return state;
         default:
             return state;
