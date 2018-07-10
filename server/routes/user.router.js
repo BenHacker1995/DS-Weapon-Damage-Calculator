@@ -27,6 +27,16 @@ router.post('/register', (req, res, next) => {
     .catch((err) => { next(err); });
 });
 
+router.post('/char-create', ( req, res, next ) => {
+  console.log( 'req: ', req.body );
+
+  const queryText = `INSERT INTO charlist
+  ( person_id, charname, strength, dexterity, intelligence, faith )
+  VALUES ( $1, $2, $3, $4, $5 );`;
+  pool.query( queryText, [ req.body, req.body.charname, req.body.str,
+                    req.body.dex, req.body.int, req.body.faith ]) 
+})
+
 // Handles login form authenticate/login POST
 // userStrategy.authenticate('local') is middleware that we run on this route
 // this middleware will run our POST if successful
