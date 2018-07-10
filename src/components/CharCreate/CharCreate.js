@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
+const mapStateToProps = state => ({
+    user: state.user,
+    char: state.char
+  });
+
 class CharCreate extends Component {
     state = {
         char: {
-            username: '',
+            username: this.props.user.userName,
             charname: '',
             strength: 0,
             dexterity: 0,
@@ -28,7 +33,6 @@ class CharCreate extends Component {
         this.props.dispatch( { type: 'NEW_CHAR', payload: this.state.newPlant });
         this.setState({
             char: {
-                username: '',
                 charname: '',
                 strength: 0,
                 dexterity: 0,
@@ -42,9 +46,26 @@ class CharCreate extends Component {
         return (
             <div>
                 <pre>{ JSON.stringify( this.state )}</pre>
+                <form className="input">
+                    <input type='text' placeholder="Character Name"
+                    value={ this.state.char.charname }
+                    onChange={ this.handleChange( 'charname' ) }/>
+                    <input type='number' placeholder="Strength"
+                    value={ this.state.char.strength }
+                    onChange={ this.handleChange( 'strength' ) }/>
+                    <input type='number' placeholder="Dexterity"
+                    value={ this.state.char.dexterity }
+                    onChange={ this.handleChange( 'dexterity' ) }/>
+                    <input type='number' placeholder="Intelligence"
+                    value={ this.state.char.intelligence }
+                    onChange={ this.handleChange( 'intelligence' ) }/>
+                    <input type='number' placeholder="Faith"
+                    value={ this.state.char.faith }
+                    onChange={ this.handleChange( 'faith' ) }/>
+                </form>
             </div>
         )
     } 
 }
 
-export default CharCreate;
+export default connect( mapStateToProps )( CharCreate );
