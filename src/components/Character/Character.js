@@ -1,36 +1,57 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import CharCreate from '../CharCreate/CharCreate';
-import CharList from '../CharList/CharList';
+
+import { USER_ACTIONS } from '../../redux/actions/userActions';
+import { triggerLogout } from '../../redux/actions/loginActions';
+
 
 const mapStateToProps = state => ({
-    user: state.user,
-    newChar: state.newChar,
-    charList: state.charList
-  });
+  user: state.user,
+  charList: state.char.charList
+});
 
 class Character extends Component {
+  componentDidMount() {
+    this.props.dispatch({ type: USER_ACTIONS.FETCH_USER });
+    // this.getChars();
+    this.redirectChar();
+  }
 
-
-    getChars = () => {
-        this.props.dispatch({ type: 'FETCH_CHARS', payload: this.props.charList.username });
+  componentDidUpdate() {
+    if (!this.props.user.isLoading && this.props.user.userName === null) {
+      this.props.history.push('home');
     }
+  }
 
+  logout = () => {
+    this.props.dispatch(triggerLogout());
+    this.props.history.push('home');
+  }
 
-    render() {
-        if ( true ) {
-            return(
-                <CharList getChars={ this.getChars }/>
-            )
-        } else {
-            return(
-                <CharCreate  newChar={ this.newChar }
-                handleChange={ this.handleChange }
-                char={ this.state.char }
-                />
-            )
-        }
-    } 
+  redirectChar() {
+    let charArr = [];
+    console.log( 'redirectChar' );
+    for ( let i in this.props.charList ) {
+      if ( this.props.charList.length > 0) {
+        console.log(i);
+      charArr.push( i );
+      }
+    }
+    if ( charArr.length > 0 ) {
+      this.props.history.push('/char/list');
+    } else {
+      this.props.history.push('/char/create');
+    }
+  }
+
+  render() {
+    return (
+      <div>
+
+      </div>
+    );
+  }
 }
 
-export default connect( mapStateToProps )( Character );
+export default connect(mapStateToProps)( Character );
+

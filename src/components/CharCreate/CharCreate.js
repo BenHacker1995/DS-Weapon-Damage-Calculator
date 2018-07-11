@@ -17,6 +17,18 @@ class CharCreate extends Component {
             faith: 0
         }
     }
+    
+
+    componentDidUpdate() {
+        if (!this.props.user.isLoading && this.props.user.userName === null) {
+          this.props.history.push('/char');
+          this.props.history.push('/');
+        }
+    }
+
+    getChars = () => {
+        this.props.dispatch({ type: 'FETCH_CHARS', payload: this.props.user.userName });
+    }
 
     handleChange = ( key ) => event => {
         this.setState({
@@ -30,6 +42,7 @@ class CharCreate extends Component {
     newChar = event => {
         event.preventDefault();
         this.props.dispatch( { type: 'NEW_CHAR', payload: this.state.char });
+        // this.getChars();
         this.setState({
             char: {
                 username: this.props.user.userName,
@@ -39,7 +52,9 @@ class CharCreate extends Component {
                 intelligence: 0,
                 faith: 0
             }
-        })
+        });
+        // this.props.history.push('/char');
+        this.props.history.push('/char/list');
     }
 
     render() {

@@ -7,20 +7,11 @@ const mapStateToProps = ( reduxState ) => ({
 })
 
 class CharList extends Component {
-    componentDidMount() {
-        this.getChars();
-    }
 
     componentDidUpdate() {
         if (!this.props.user.isLoading && this.props.user.userName === null) {
-          this.props.history.push('/char');
-          this.props.history.push('/');
+          this.props.history.push('home');
         }
-    }
-    //   }
-
-    getChars = () => {
-        this.props.dispatch({ type: 'FETCH_CHARS', payload: this.props.user.userName });
     }
 
     render() {

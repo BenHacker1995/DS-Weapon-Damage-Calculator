@@ -7,6 +7,7 @@ import { triggerLogin, formError, clearError } from '../../redux/actions/loginAc
 const mapStateToProps = state => ({
   user: state.user,
   login: state.login,
+  charList: state.char.charList
 });
 
 class LoginPage extends Component {
@@ -26,7 +27,7 @@ class LoginPage extends Component {
   
   componentWillReceiveProps(nextProps) {
     if (nextProps.user.userName) {
-      this.props.history.push('/user');
+      this.props.history.push('/char');
     }
   }
 
@@ -44,6 +45,10 @@ class LoginPage extends Component {
     this.setState({
       [propertyName]: event.target.value,
     });
+  }
+
+    getChars = ( event ) => {
+    this.props.dispatch({ type: 'FETCH_CHARS', payload: this.state.username });
   }
 
   renderAlert() {
@@ -93,6 +98,7 @@ class LoginPage extends Component {
               type="submit"
               name="submit"
               value="Log In"
+              onClick={ this.getChars }
             />
             <Link to="/register">Register</Link>
           </div>

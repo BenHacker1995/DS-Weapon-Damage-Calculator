@@ -9,7 +9,7 @@ import {
 import Header from './components/Header/Header';
 import LoginPage from './components/LoginPage/LoginPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
-import UserPage from './components/UserPage/UserPage';
+import Character from './components/Character/Character';
 import CharCreate from './components/CharCreate/CharCreate';
 import CharList from './components/CharList/CharList';
 import InfoPage from './components/InfoPage/InfoPage';
@@ -31,8 +31,8 @@ const App = () => (
           component={RegisterPage}
         />
         <Route
-          path="/user"
-          component={ UserPage }
+          exact path="/char"
+          component={ Character }
         />
         <Route
           exact path="/char/create"

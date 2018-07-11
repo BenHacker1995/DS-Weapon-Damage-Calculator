@@ -2,9 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/**
- * GET route template
- */
+
 router.get( '/:username', (req, res) => {
     const queryText = 'SELECT * FROM charlist WHERE username=$1;';
     pool.query( queryText, [ req.params.username ] )
