@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Nav from '../Nav/Nav';
 
 const mapStateToProps = state => ({
     user: state.user,
@@ -60,6 +61,7 @@ class CharCreate extends Component {
     render() {
         return(
             <div>
+                <Nav />
                 <pre>{ JSON.stringify( this.state.char )}</pre>
                 <form className="input">
                     <input type='text' placeholder="Character Name"

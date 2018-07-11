@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Nav from '../Nav/Nav';
 
 const mapStateToProps = ( reduxState ) => ({
     user: reduxState.user,
@@ -17,6 +18,7 @@ class CharList extends Component {
     render() {
         return (
             <div>
+                <Nav />
                 { this.props.charList.map( char => 
                 <p>{ char.charname }</p>)}
                 {/* <pre>{ JSON.stringify( this.props.charList )}</pre> */}
