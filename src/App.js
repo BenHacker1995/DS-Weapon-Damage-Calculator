@@ -10,6 +10,8 @@ import Header from './components/Header/Header';
 import LoginPage from './components/LoginPage/LoginPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
 import UserPage from './components/UserPage/UserPage';
+import CharCreate from './components/CharCreate/CharCreate';
+import CharList from './components/CharList/CharList';
 import InfoPage from './components/InfoPage/InfoPage';
 
 import './styles/main.css';
@@ -30,8 +32,16 @@ const App = () => (
         />
         <Route
           path="/user"
-          component={UserPage}
+          component={ UserPage }
         />
+        <Route
+          exact path="/char/create"
+          component={ CharCreate }
+        />
+        <Route
+          exact path="/char/list"
+          component={ CharList }
+          />
         <Route
           path="/info"
           component={InfoPage}

@@ -5,10 +5,12 @@ const router = express.Router();
 /**
  * GET route template
  */
-router.get( '/', (req, res) => {
+router.get( '/:username', (req, res) => {
     const queryText = 'SELECT * FROM charlist WHERE username=$1;';
-    pool.query( queryText, [ req.body.username ] )
-    .then( (result ) => { res.send( result.rows ); })
+    pool.query( queryText, [ req.params.username ] )
+    .then( (result ) => { 
+      console.log( result.rows );
+      res.send( result.rows ); })
     .catch( ( error ) => {
       console.log( 'Error completing SELECT query', error );
       res.sendStatus( 500 );
@@ -16,8 +18,6 @@ router.get( '/', (req, res) => {
 });
 
 router.post( '/', ( req, res, next ) => {
-  console.log( 'req: ', req.body );
-  
   const queryText = `INSERT INTO charlist
     ( username, charname, strength, dexterity, intelligence, faith )
     VALUES ( $1, $2, $3, $4, $5, $6 );`;

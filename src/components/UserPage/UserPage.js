@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import CharList from '../CharList/CharList';
+import { Redirect } from 'react-router';
 import CharCreate from '../CharCreate/CharCreate';
+import CharList from '../CharList/CharList';
 
 import Nav from '../../components/Nav/Nav';
 
@@ -34,14 +35,14 @@ class UserPage extends Component {
     let content = null;
 
     if (this.props.user.userName) {
-      if ( this.props.char.charName ) {
+      if ( this.props.char != null ) {
         content = (
           <div>
             <h1
               id="welcome"
             >
               Welcome, { this.props.user.userName }!
-              <CharList />
+              <Redirect to="/char/list" />
             </h1>
             <button
               onClick={this.logout}
@@ -65,7 +66,7 @@ class UserPage extends Component {
               Log Out
             </button>
           </div>
-        );
+        )
       }
     }
 

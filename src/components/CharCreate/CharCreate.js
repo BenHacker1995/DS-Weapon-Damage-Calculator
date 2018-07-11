@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 
 const mapStateToProps = state => ({
     user: state.user,
-    char: state.char
-  });
+})
 
 class CharCreate extends Component {
+
     state = {
         char: {
             username: this.props.user.userName,
@@ -44,9 +43,9 @@ class CharCreate extends Component {
     }
 
     render() {
-        return (
+        return(
             <div>
-                <pre>{ JSON.stringify( this.state )}</pre>
+                <pre>{ JSON.stringify( this.state.char )}</pre>
                 <form className="input">
                     <input type='text' placeholder="Character Name"
                     value={ this.state.char.charname }
@@ -67,7 +66,6 @@ class CharCreate extends Component {
                 </form>
             </div>
         )
-    } 
+    }
 }
-
-export default connect( mapStateToProps )( CharCreate );
+export default connect( mapStateToProps )( CharCreate )

@@ -8,7 +8,7 @@ export default function* rootSaga() {
   yield all([
     userSaga(),
     loginSaga(),
-    charSaga(),
+    charSaga()
     // watchIncrementAsync()
   ]);
 }
