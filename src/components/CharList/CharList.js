@@ -11,6 +11,14 @@ class CharList extends Component {
         this.getChars();
     }
 
+    componentDidUpdate() {
+        if (!this.props.user.isLoading && this.props.user.userName === null) {
+          this.props.history.push('/char');
+          this.props.history.push('/');
+        }
+    }
+    //   }
+
     getChars = () => {
         this.props.dispatch({ type: 'FETCH_CHARS', payload: this.props.user.userName });
     }
@@ -18,9 +26,9 @@ class CharList extends Component {
     render() {
         return (
             <div>
-                {/* { this.props.charList.map( char => 
-                { char.charname })} */}
-                <pre>{ JSON.stringify( this.props.charList )}</pre>
+                { this.props.charList.map( char => 
+                <p>{ char.charname }</p>)}
+                {/* <pre>{ JSON.stringify( this.props.charList )}</pre> */}
             </div>
         )
     }
