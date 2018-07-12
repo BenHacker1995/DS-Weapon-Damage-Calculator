@@ -47,7 +47,7 @@ class LoginPage extends Component {
     });
   }
 
-    getChars = ( event ) => {
+  getChars = ( event ) => {
     this.props.dispatch({ type: 'FETCH_CHARS', payload: this.state.username });
   }
 

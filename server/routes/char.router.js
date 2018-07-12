@@ -22,10 +22,24 @@ router.post( '/', ( req, res, next ) => {
   pool.query( queryText, [ req.body.username, req.body.charname, req.body.strength,
                     req.body.dexterity, req.body.intelligence, req.body.faith ]) 
   .then( () => { res.sendStatus( 201 ); })
-  .catch( (error) => {
+  .catch( ( error ) => {
     console.log( 'Error completing INSERT char query', error );
     res.sendStatus( 500 );
   });
+})
+
+router.put( '/:username', ( req, res ) => {
+  const queryText = `UPDATE charlist SET charname=$1, strength=$2, dexterity=$3,
+  intelligence=$4, faith=$5 WHERE id=$6 AND username=$7;`;
+  console.log( 'req: ', req.body );
+  console.log( 'req: ', req.user );
+  pool.query( queryText, [ req.body.charname, req.body.strength, req.body.dexterity,
+    req.body.intelligence, req.body.faith, req.body.id, req.user.username ])
+    .then( () => { res.sendStatus( 200 ); })
+    .catch( ( error ) => {
+      console.log( 'Error completing UPDATE char query', error );
+      res.sendStatus( 500 );
+    })
 })
 
 module.exports = router;
