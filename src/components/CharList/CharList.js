@@ -68,7 +68,7 @@ class CharList extends Component {
     }
 
     getChars = () => {
-        this.props.dispatch({ type: 'FETCH_CHARS', payload: this.state.username });
+        this.props.dispatch({ type: 'FETCH_CHARS', payload: this.state.char.username });
     }
 
     updateChar = event => {
@@ -77,7 +77,7 @@ class CharList extends Component {
         this.props.dispatch( { type: 'UPDATE_CHAR',
         payload: this.state.char });
         this.handleClose();
-        this.getChars();
+        // this.getChars();
         this.setState({
             char: {
                 id: this.state.id,
@@ -89,6 +89,7 @@ class CharList extends Component {
                 faith: 0
             }
         });
+        this.props.history.push( '/char/list' );
     }
 
     render() {

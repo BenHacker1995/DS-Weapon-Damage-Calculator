@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get( '/:username', (req, res) => {
     const queryText = 'SELECT * FROM charlist WHERE username=$1;';
-    pool.query( queryText, [ req.params.username ] )
+    pool.query( queryText, [ req.user.username ] )
     .then( (result ) => { 
       console.log( result.rows );
       res.send( result.rows ); })
