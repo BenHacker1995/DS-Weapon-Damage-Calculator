@@ -4,8 +4,9 @@ const charList = ( state = [], action ) => {
     switch ( action.type ) {
         case 'NEW_CHAR' : state.push( action.payload );
         return state;
-        case 'SET_CHARS' : return [ ...action.payload ];
-        case 'UPDATE_CHAR': console.log( 'PAYLOAD', action.payload)
+        case 'SET_CHARS' : return [ ...state, ...action.payload ];
+        case 'UPDATE_CHAR': console.log( 'PAYLOAD', action.payload);
+        return action.payload;
         default:
             return state;
     }

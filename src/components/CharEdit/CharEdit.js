@@ -25,7 +25,7 @@ class CharEdit extends Component {
     render() {
         return(
             <div>
-                <Button onClick={this.props.handleOpen}>Edit Character</Button>
+                <Button onClick={this.props.handleOpen}></Button>
                 <Dialog
                     open={this.props.open}
                     onClose={this.props.close}
