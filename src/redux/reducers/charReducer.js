@@ -6,7 +6,8 @@ const charList = ( state = [], action ) => {
         return state;
         case 'SET_CHARS' : return [ ...state, ...action.payload ];
         case 'UPDATE_CHAR': console.log( 'PAYLOAD', action.payload);
-        return action.payload;
+        state = state.filter( user => user.id !== action.payload.id );
+        return [ ...action.payload ];
         default:
             return state;
     }

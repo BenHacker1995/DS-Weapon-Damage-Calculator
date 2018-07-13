@@ -1,4 +1,4 @@
-import { call, put, takeLatest, takeEvery } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
 // import createSagaMiddleware from 'redux-saga';
@@ -31,9 +31,7 @@ function* charList( action ) {
 }
 
 function* updateChar( action ) {
-    console.log( 'PAYLOAD:', action.payload );
     let user = action.payload.username;
-    let id = action.payload.id;
     try {
         const charResponse = yield call( axios.put, `/char/${ user }`, action.payload );
         yield put({ type: 'FETCH_CHARS' })

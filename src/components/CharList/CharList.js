@@ -11,21 +11,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 const styles = theme => ({
@@ -37,12 +23,6 @@ const styles = theme => ({
   heading: {
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
-  },
-  table: {
-    minWidth: 1020,
-  },
-  tableWrapper: {
-    overflowX: 'auto',
   },
 });
 
@@ -64,7 +44,6 @@ class CharList extends Component {
             faith: 0
         }
     };
-
 
     componentDidUpdate() {
         if (!this.props.user.isLoading && this.props.user.userName === null) {
@@ -90,107 +69,19 @@ class CharList extends Component {
           open: true,
             char: { id: id } 
         });
-      };
+    };
     
-      handleClose = () => {
+    handleClose = () => {
         this.setState({ open: false });
-      };
-
-    handleEdit = ( char ) => {
-        console.log( 'handleEdit' );
-        // let dialog = 
-            // <div>
-            //     <Dialog
-            //         open={ this.state.open }
-            //         onClose={this.handleClose}
-            //         aria-labelledby="form-dialog-title"
-            //     >
-            //         <DialogTitle id="form-dialog-title">
-            //         Edit Character</DialogTitle>
-            //         <DialogContent>
-            //             <DialogContentText>
-            //                 Edit Stats here
-            //             </DialogContentText>
-            //             <TextField
-            //             autoFocus
-            //             margin="dense"
-            //             id="name"
-            //             label="Character Name"
-            //             type="Text"
-            //             fullWidth
-            //             value={ this.state.char.charname }
-            //             onChange={ this.handleChange( 'charname' ) }
-            //             />
-            //             <TextField
-            //             autoFocus
-            //             margin="dense"
-            //             id="name"
-            //             label="Strength"
-            //             type="number"
-            //             value={ this.state.char.strength }
-            //             onChange={ this.handleChange( 'strength' ) }
-            //             />
-            //             <TextField
-            //             autoFocus
-            //             margin="dense"
-            //             id="name"
-            //             label="Dexterity"
-            //             type="number"
-            //             value={ this.state.char.dexterity }     
-            //             onChange={ this.handleChange( 'dexterity' ) }                               
-            //             />
-            //             <TextField
-            //             autoFocus
-            //             margin="dense"
-            //             id="name"
-            //             label="Intelligence"
-            //             type="number"
-            //             value={ this.state.char.intelligence }
-            //             onChange={ this.handleChange( 'intelligence' ) }
-            //             />
-            //             <TextField
-            //             autoFocus
-            //             margin="dense"
-            //             id="name"
-            //             label="Faith"
-            //             type="number"
-            //             value={ this.state.char.faith }
-            //             onChange={ this.handleChange( 'faith' ) }
-            //             />
-            //         </DialogContent>
-            //         <DialogActions>
-            //             <Button onClick={this.handleClose} color="primary">
-            //                 Cancel
-            //             </Button>
-            //             <Button onClick={this.updateChar} color="primary">
-            //                 Edit Character
-            //             </Button>
-            //         </DialogActions>
-            //     </Dialog>
-            // </div>
-            <CharEdit id={ char.id } charState={ this.state.char } open={ this.state.open }
-            handleOpen={ () => this.handleClickOpen( char.id ) } close={ this.handleClose }
-            handleChange={ this.handleChange } updateChar={ this.updateChar }/>
-            // return dialog;
-    }
+    };
 
     updateChar = event => {
         event.preventDefault();
-        console.log( "state", this.state.char );
+        this.setState({ char: {
+            username: this.props.user.userName}});
         this.props.dispatch( { type: 'UPDATE_CHAR',
         payload: this.state.char });
-        this.setState({
-            char: {
-                id: this.state.id,
-                username: this.props.user.userName,
-                charname: '',
-                strength: 0,
-                dexterity: 0,
-                intelligence: 0,
-                faith: 0
-            }
-        });
-        this.props.history.push( '/char/list' );
+        this.handleClose();
     }
 
     render() {
@@ -220,7 +111,7 @@ class CharList extends Component {
                     </AppBar>
                 </div>
             <div>
-                { JSON.stringify( this.state.char )}
+                {JSON.stringify( this.props.charList )}
                 { this.props.charList.map( ( char ) => {
                     return (
                         <ExpansionPanel key={ char.id }>
@@ -251,12 +142,10 @@ class CharList extends Component {
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
                             <Button>
-                                {/* // onClick={ () => this.handleEdit(char) }> */}
                                 <div>
                                 <CharEdit id={ char.id } charState={ this.state.char } open={ this.state.open }
                                 handleOpen={ () => this.handleClickOpen( char.id ) } close={ this.handleClose }
-                                handleChange={ this.handleChange } updateChar={ this.updateChar }/>
-                                Edit Character
+                                handleChange={ this.handleChange } updateChar={ this.updateChar } value="Edit Character"/>
                                 </div>
                             </Button>
                             <Button

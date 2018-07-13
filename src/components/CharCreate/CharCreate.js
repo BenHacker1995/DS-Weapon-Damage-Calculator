@@ -63,7 +63,6 @@ class CharCreate extends Component {
     newChar = event => {
         event.preventDefault();
         this.props.dispatch( { type: 'NEW_CHAR', payload: this.state.char });
-        // this.getChars();
         this.setState({
             char: {
                 username: this.props.user.userName,
@@ -74,7 +73,6 @@ class CharCreate extends Component {
                 faith: 0
             }
         });
-        // this.props.history.push('/char');
         this.props.history.push('/char/list');
     }
 
@@ -102,7 +100,6 @@ class CharCreate extends Component {
                         </Tabs>
                     </AppBar>
                 </div>
-                <pre>{ JSON.stringify( this.state.char )}</pre>
                 <form className="input">
                     <input type='text' placeholder="Character Name"
                     value={ this.state.char.charname }
