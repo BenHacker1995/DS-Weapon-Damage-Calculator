@@ -4,9 +4,13 @@ const charList = ( state = [], action ) => {
     switch ( action.type ) {
         case 'NEW_CHAR' : state.push( action.payload );
         return state;
-        case 'SET_CHARS' : return [ ...state, ...action.payload ];
+        case 'INITIALIZE_CHARS' : state = []; return state;
+        case 'SET_CHARS' : return [ ...action.payload ];
         case 'UPDATE_CHAR': console.log( 'PAYLOAD', action.payload);
-        state = state.filter( user => user.id !== action.payload.id );
+        state = state.filter( char => char.id !== action.payload.id );
+        return [ ...action.payload ];
+        case 'DELETE_CHAR' :
+        state = state.filter( char => char.id !== action.payload.id );
         return [ ...action.payload ];
         default:
             return state;

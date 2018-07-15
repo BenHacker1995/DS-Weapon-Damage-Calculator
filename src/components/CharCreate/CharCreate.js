@@ -47,10 +47,6 @@ class CharCreate extends Component {
         }
     }
 
-    getChars = () => {
-        this.props.dispatch({ type: 'FETCH_CHARS', payload: this.props.user.userName });
-    }
-
     handleChange = ( key ) => event => {
         this.setState({
             char: {

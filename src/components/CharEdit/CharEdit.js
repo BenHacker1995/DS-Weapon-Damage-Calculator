@@ -22,13 +22,27 @@ const styles = theme => ({
   });
 
 class CharEdit extends Component {
+    state = {
+        open: false
+    }
+
+    handleOpen = () => {
+        console.log( 'test');
+        this.setState({ open: true });
+    };
+    
+    handleClose = () => {
+        this.setState({ open: false });
+    };
+
     render() {
         return(
             <div>
-                <Button onClick={this.props.handleOpen}></Button>
+                <Button onClick={this.handleOpen }>
+                Edit { this.props.charState.charname }</Button>
                 <Dialog
-                    open={this.props.open}
-                    onClose={this.props.close}
+                    open={this.state.open}
+                    onClose={this.handleClose}
                     aria-labelledby="form-dialog-title"
                 >
                     <DialogTitle id="form-dialog-title">
@@ -40,7 +54,6 @@ class CharEdit extends Component {
                         <TextField
                         autoFocus
                         margin="dense"
-                        id="name"
                         label="Character Name"
                         type="Text"
                         fullWidth
@@ -85,17 +98,37 @@ class CharEdit extends Component {
                         />
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.props.close} color="primary">
+                        <Button onClick={this.props.closeStats} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={this.props.updateChar} color="primary">
+                        <Button onClick={() => this.props.updateChar( this.props.charState.id )} color="primary">
                             Edit Character
                         </Button>
-                    </DialogActions>
+                        <Button onClick={this.props.handleDeleteOpen}>Delete</Button>
+                            <Dialog
+                            open={this.props.openDelete}
+                            onClose={this.props.closeDelete}
+                            aria-describedby="alert-dialog-description"
+                            >
+                            <DialogContent>
+                                <DialogContentText id="alert-dialog-description">
+                                Do you really want to delete this character?
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={this.props.closeDelete} color="primary">
+                                Cancel
+                                </Button>
+                                <Button onClick={ () => this.props.deleteChar( this.props.charState.id ) } color="primary" autoFocus>
+                                Yes, Delete Character
+                                </Button>
+                            </DialogActions>
+                            </Dialog>
+                        </DialogActions>
                 </Dialog>
             </div>
         )
     }
 }
 
-export default compose(withStyles(styles),connect())( CharEdit );
+export default compose(withStyles(styles))( CharEdit );

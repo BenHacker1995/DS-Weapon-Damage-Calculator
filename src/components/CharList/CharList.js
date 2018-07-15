@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Link } from 'react-router-dom';
 import CharEdit from '../CharEdit/CharEdit';
+import CharDelete from '../CharDelete/CharDelete';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -11,7 +12,6 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Button from '@material-ui/core/Button';
 
 
 const styles = theme => ({
@@ -34,6 +34,7 @@ const mapStateToProps = ( reduxState ) => ({
 class CharList extends Component {
     state = {
         open: false,
+        openDelete: false,
         char: {
             id: 0,
             username: this.props.user.userName,
@@ -45,9 +46,14 @@ class CharList extends Component {
         }
     };
 
+    componentDidMount() {
+        this.getChars();
+    }
+
     componentDidUpdate() {
         if (!this.props.user.isLoading && this.props.user.userName === null) {
-          this.props.history.push('home');
+          this.props.history.push('/char');
+          this.props.history.push( '/' );
         }
     }
 
@@ -61,32 +67,62 @@ class CharList extends Component {
     }
 
     getChars = () => {
-        this.props.dispatch({ type: 'FETCH_CHARS', payload: this.state.char.username });
+        this.props.dispatch({ type: 'INITIALIZE_CHARS' });
+        this.props.dispatch({ type: 'FETCH_CHARS', payload: this.props.user.userName });
     }
 
-    handleClickOpen = ( id ) => {
+    handleStatsOpen = () => {
+        console.log( 'test');
+        this.setState({ open: true });
+    };
+    
+    handleStatsClose = () => {
+        this.setState({ open: false });
+    };
+
+    handleDeleteOpen = ( id ) => {
         this.setState({
-          open: true,
+          openDelete: true,
             char: { id: id } 
         });
     };
     
-    handleClose = () => {
-        this.setState({ open: false });
+    handleDeleteClose = () => {
+        this.setState({ openDelete: false });
     };
 
-    updateChar = event => {
-        event.preventDefault();
+    updateChar = id => {
         this.setState({ char: {
+            id: id,
             username: this.props.user.userName}});
         this.props.dispatch( { type: 'UPDATE_CHAR',
         payload: this.state.char });
-        this.handleClose();
+        this.handleStatsClose();
+    }
+
+    deleteChar = id => {
+        // event.preventDefault();
+        this.setState({ char: {
+             id: id,
+            username: this.props.user.userName
+        }});
+        console.log( 'PAYLOAD: ' );        
+        this.props.dispatch( { type: 'DELETE_CHAR', payload: this.state.char });
+        this.handleDeleteClose();
+        this.props.history.push( '/char/list' );
+    }
+
+    editChar = (charState) => {
+        return <CharEdit charState={ charState } openStats={ this.state.open }
+            openDelete={ this.state.openDelete }
+        handleStatsOpen={ this.handleStatsOpen } closeStats={ this.handleStatsClose }
+        handleDeleteOpen={this.handleDeleteOpen } closeDelete={ this.handleDeleteClose }
+        handleChange={ this.handleChange }
+        updateChar={ () => this.updateChar( charState.id ) }
+        deleteChar={ this.deleteChar }/>
     }
 
     render() {
-
-
         return (
             <div>
                 <div>
@@ -112,54 +148,70 @@ class CharList extends Component {
                 </div>
             <div>
                 {JSON.stringify( this.props.charList )}
-                { this.props.charList.map( ( char ) => {
+                { this.props.charList.map ( charState => {
                     return (
-                        <ExpansionPanel key={ char.id }>
+                        <ExpansionPanel key={ charState.id }>
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                             <ExpansionPanelDetails>
-                                <Typography>{ char.charname }</Typography>
+                                <Typography>{ charState.charname }</Typography>
+                            </ExpansionPanelDetails>
+                            <ExpansionPanelDetails>
+                                <Typography>ID: { charState.id }</Typography>
                             </ExpansionPanelDetails>
                             <ExpansionPanelDetails>                               
                                 <Typography>
-                                    Strength: { char.strength }
+                                    Strength: { charState.strength }
                                 </Typography>
                             </ExpansionPanelDetails>
                             <ExpansionPanelDetails>                               
                                 <Typography>
-                                    Dexterity: { char.dexterity }
+                                    Dexterity: { charState.dexterity }
                                 </Typography>
                             </ExpansionPanelDetails>
                             <ExpansionPanelDetails>                               
                                 <Typography>
-                                    Intelligence: { char.intelligence }
+                                    Intelligence: { charState.intelligence }
                                 </Typography>
                             </ExpansionPanelDetails>
                             <ExpansionPanelDetails>                               
                                 <Typography>
-                                    Faith: { char.faith }
+                                    Faith: { charState.faith }
                                 </Typography>
                             </ExpansionPanelDetails>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
-                            <Button>
+                            {/* <Button onClick={ this.charEdit }>
+                            <div>
+                            <CharEdit charState={ char } openStats={ this.state.openStats }
+                                openDelete={ this.state.openDelete }
+                            handleStatsOpen={ this.handleStatsOpen } closeStats={ this.handleStatsClose }
+                            handleDeleteOpen={this.handleDeleteOpen } closeDelete={ this.handleDeleteClose }
+                            handleChange={ this.handleChange }
+                            updateChar={ () => this.updateChar( char.id ) }
+                            deleteChar={ this.deleteChar }/>
+                            </div>
+                            
+                            </Button> */}
+                            {/* <Button onClick={() => this.editChar( charState )}>
+                                Edit { charState.charname }</Button> */}
+                                <Typography>
+                            { this.editChar( charState) }
+                                </Typography>
+                            {/* <Button>
                                 <div>
-                                <CharEdit id={ char.id } charState={ this.state.char } open={ this.state.open }
-                                handleOpen={ () => this.handleClickOpen( char.id ) } close={ this.handleClose }
-                                handleChange={ this.handleChange } updateChar={ this.updateChar } value="Edit Character"/>
-                                </div>
-                            </Button>
-                            <Button
-                                onClick={ this.deleteChar }>
+                                    <CharDelete id={ char.id } charState={ this.state.char } open={ this.state.openDelete }
+                                    handleOpen={ () => this.handleDeleteOpen( char.id ) }
+                                    close={ this.handleDeleteClose } deleteChar={ this.deleteChar } />
                                     Delete Character
-                            </Button>
+                                </div>
+                                    
+                            </Button> */}
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
-                    )
-                })}
+                    
+                )})}  
             </div>
         </div>
-        )
-    }
-}
+    )}}
 
 export default compose(withStyles(styles),connect( mapStateToProps ))( CharList );
