@@ -18,7 +18,6 @@ const charList = ( state = [], action ) => {
 }
 
 const store = combineReducers({
-    // newChar,
     charList
 });
 

@@ -125,7 +125,6 @@ class CharList extends Component {
                     </AppBar>
                 </div>
             <div>
-                {JSON.stringify( this.props.charList )}
                 { this.props.charList.map ( charState => {
                     return (
                         <ExpansionPanel key={ charState.id }>

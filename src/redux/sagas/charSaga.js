@@ -1,15 +1,11 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
 
-// import createSagaMiddleware from 'redux-saga';
-
-
 function* charSaga() {
     yield takeEvery( 'NEW_CHAR', newChar );
     yield takeEvery( 'FETCH_CHARS', charList );
     yield takeEvery( 'UPDATE_CHAR', updateChar );
     yield takeEvery( 'DELETE_CHAR', deleteChar );
-    // yield takeEvery( 'INITIALIZE_CHARS', initializeChars );
 }
 
 function* newChar( action ) {
@@ -31,16 +27,6 @@ function* charList( action ) {
         console.log( 'Error in charList', error );
     }
 }
-
-// function* initializeChars( action ) {
-//     try {
-//         const charResponse = yield call( axios.get, null );
-//         // yield put({ type: 'FETCH_CHARS' });
-//     }
-//     catch ( error ) {
-//         console.log( 'Error in charList', error );
-//     }
-// }
 
 function* updateChar( action ) {
     let id = action.payload.id;
@@ -65,6 +51,5 @@ function* deleteChar( action ) {
         console.log( 'Error in deleteChar', error );
     }
 }
-
 
 export default charSaga;

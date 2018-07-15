@@ -12,7 +12,7 @@ import RegisterPage from './components/RegisterPage/RegisterPage';
 import Character from './components/Character/Character';
 import CharCreate from './components/CharCreate/CharCreate';
 import CharList from './components/CharList/CharList';
-import InfoPage from './components/InfoPage/InfoPage';
+import WepList from './components/WepList/WepList';
 
 import './styles/main.css';
 
@@ -43,8 +43,8 @@ const App = () => (
           component={ CharList }
           />
         <Route
-          path="/info"
-          component={InfoPage}
+          exact path="/weps"
+          component={ WepList }
         />
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />
