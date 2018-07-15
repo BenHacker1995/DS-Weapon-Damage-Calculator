@@ -16,7 +16,7 @@ router.get( '/', (req, res) => {
 });
 
 router.get( '/:id', (req, res) => {
-  const queryText = 'SELECT * FROM charlist WHERE username=$1 AND id=$2;';
+  const queryText = 'SELECT * FROM charlist WHERE username=$1 AND id=$2 ORDER BY id ASC;';
   pool.query( queryText, [ req.user.username, req.params.id ] )
   .then( (result ) => { 
     console.log( result.rows );
@@ -54,11 +54,11 @@ router.put( '/:id', ( req, res ) => {
     })
 })
 
-router.delete( '/:username?id=:id', ( req, res ) => {
-  const queryText = `DELETE FROM charlist WHERE username=$1 AND id=$2;`;
+router.delete( '/:id', ( req, res ) => {
+  const queryText = `DELETE FROM charlist WHERE id=$1;`;
   console.log( 'req: ', req.query );
   console.log( 'req: ', req.user );
-  pool.query( queryText, [ req.user.username, req.body.id ])
+  pool.query( queryText, [ req.params.id ])
   .then( () => { res.sendStatus( 200 ); })
   .catch( ( error ) => {
     console.log( 'Error completing DELETE char query', error );

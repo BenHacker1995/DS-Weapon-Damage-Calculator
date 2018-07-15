@@ -20,26 +20,54 @@ const styles = theme => ({
     },
   });
 
+const mapStateToProps = ( reduxState ) => ({
+    user: reduxState.user,
+})
+
 class CharDelete extends Component {
+    state = {
+        open: false,
+        char: {
+            id: this.props.charState.id,
+        }
+    }
+
+    handleOpen = () => {
+        this.setState({ open: true });
+    };
+    
+    handleClose = () => {
+        this.setState({ open: false });
+    };
+    
+    deleteChar = () => {
+        console.log( 'PAYLOAD: ', this.state.char );        
+        this.props.dispatch( { type: 'DELETE_CHAR', payload: this.state.char });
+        this.handleClose();
+    }
+
     render() {
         return(
             <div>
-                <Button onClick={this.props.handleOpen}></Button>
+                <Button onClick={this.handleOpen}>
+                Delete { this.props.charState.charname }</Button>
                 <Dialog
-                open={this.props.open}
-                onClose={this.props.close}
+                open={this.state.open}
+                onClose={this.handleClose}
                 aria-describedby="alert-dialog-description"
                 >
+                    <DialogTitle id="form-dialog-title">
+                    Delete { this.props.charState.charname }</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                     Do you really want to delete this character?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={this.props.close} color="primary">
+                    <Button onClick={this.handleClose} color="primary">
                     Cancel
                     </Button>
-                    <Button onClick={ this.props.deleteChar } color="primary" autoFocus>
+                    <Button onClick={ this.deleteChar } color="primary" autoFocus>
                     Yes, Delete Character
                     </Button>
                 </DialogActions>
@@ -49,4 +77,4 @@ class CharDelete extends Component {
     }
 }
 
-export default compose(withStyles(styles),connect())( CharDelete );
+export default compose(withStyles(styles),connect( mapStateToProps ))( CharDelete );

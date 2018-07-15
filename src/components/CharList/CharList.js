@@ -90,26 +90,14 @@ class CharList extends Component {
         this.handleStatsClose();
     }
 
-    deleteChar = id => {
-        // event.preventDefault();
-        this.setState({ char: {
-             id: id,
-            username: this.props.user.userName
-        }});
-        console.log( 'PAYLOAD: ' );        
-        this.props.dispatch( { type: 'DELETE_CHAR', payload: this.state.char });
-        this.handleDeleteClose();
-        this.props.history.push( '/char/list' );
+    editChar = (charState) => {
+        return <CharEdit charState={ charState } />
+        // this.props.history.push( '/char/list');
     }
 
-    editChar = (charState) => {
-        return <CharEdit charState={ charState } openStats={ this.state.open }
-            openDelete={ this.state.openDelete }
-        handleStatsOpen={ this.handleStatsOpen } closeStats={ this.handleStatsClose }
-        handleDeleteOpen={this.handleDeleteOpen } closeDelete={ this.handleDeleteClose }
-        handleChange={ this.handleChange }
-        updateChar={ () => this.updateChar( charState.id ) }
-        deleteChar={ this.deleteChar }/>
+    deleteChar = ( charState ) => {
+        return <CharDelete charState={ charState } />
+        // this.props.history.push( '/char/list');
     }
 
     render() {
@@ -173,9 +161,11 @@ class CharList extends Component {
                                 <Typography>
                             { this.editChar( charState) }
                                 </Typography>
+                                <Typography>
+                            { this.deleteChar( charState) }
+                                </Typography>
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
-                    
                 )})}  
             </div>
         </div>
