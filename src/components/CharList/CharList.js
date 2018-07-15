@@ -33,7 +33,6 @@ const mapStateToProps = ( reduxState ) => ({
 
 class CharList extends Component {
     state = {
-        open: false,
         openDelete: false,
         char: {
             id: 0,
@@ -71,15 +70,6 @@ class CharList extends Component {
         this.props.dispatch({ type: 'FETCH_CHARS', payload: this.props.user.userName });
     }
 
-    handleStatsOpen = () => {
-        console.log( 'test');
-        this.setState({ open: true });
-    };
-    
-    handleStatsClose = () => {
-        this.setState({ open: false });
-    };
-
     handleDeleteOpen = ( id ) => {
         this.setState({
           openDelete: true,
@@ -91,9 +81,9 @@ class CharList extends Component {
         this.setState({ openDelete: false });
     };
 
-    updateChar = id => {
+    updateChar() {
         this.setState({ char: {
-            id: id,
+            id: this.props.charState.id,
             username: this.props.user.userName}});
         this.props.dispatch( { type: 'UPDATE_CHAR',
         payload: this.state.char });
@@ -180,32 +170,9 @@ class CharList extends Component {
                             </ExpansionPanelDetails>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
-                            {/* <Button onClick={ this.charEdit }>
-                            <div>
-                            <CharEdit charState={ char } openStats={ this.state.openStats }
-                                openDelete={ this.state.openDelete }
-                            handleStatsOpen={ this.handleStatsOpen } closeStats={ this.handleStatsClose }
-                            handleDeleteOpen={this.handleDeleteOpen } closeDelete={ this.handleDeleteClose }
-                            handleChange={ this.handleChange }
-                            updateChar={ () => this.updateChar( char.id ) }
-                            deleteChar={ this.deleteChar }/>
-                            </div>
-                            
-                            </Button> */}
-                            {/* <Button onClick={() => this.editChar( charState )}>
-                                Edit { charState.charname }</Button> */}
                                 <Typography>
                             { this.editChar( charState) }
                                 </Typography>
-                            {/* <Button>
-                                <div>
-                                    <CharDelete id={ char.id } charState={ this.state.char } open={ this.state.openDelete }
-                                    handleOpen={ () => this.handleDeleteOpen( char.id ) }
-                                    close={ this.handleDeleteClose } deleteChar={ this.deleteChar } />
-                                    Delete Character
-                                </div>
-                                    
-                            </Button> */}
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
                     

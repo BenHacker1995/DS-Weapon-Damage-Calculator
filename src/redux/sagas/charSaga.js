@@ -14,7 +14,7 @@ function* charSaga() {
 
 function* newChar( action ) {
     try {
-        const charResponse = yield call( axios.post, '/char', action.payload );
+        const charResponse = yield call( axios.post, '/api/chars', action.payload );
         yield put({ type: 'FETCH_CHARS' })
     }
     catch ( error ) {
@@ -24,7 +24,7 @@ function* newChar( action ) {
 
 function* charList( action ) {
     try {
-        const charResponse = yield call( axios.get, `/char/${ action.payload }` );
+        const charResponse = yield call( axios.get, `/api/chars/` );
         yield put({ type: 'SET_CHARS', payload: charResponse.data });
     }
     catch ( error ) {
@@ -43,9 +43,9 @@ function* charList( action ) {
 // }
 
 function* updateChar( action ) {
-    let user = action.payload.username;
+    let id = action.payload.id;
     try {
-        const charResponse = yield call( axios.put, `/char/${ user }`, action.payload );
+        const charResponse = yield call( axios.put, `/api/chars/${ id }`, action.payload );
         yield put({ type: 'FETCH_CHARS' })
     }
     catch ( error ) {
@@ -58,7 +58,7 @@ function* deleteChar( action ) {
     let user = action.payload.username;
     let id = action.payload.id;
     try {
-        const charResponse = yield call( axios.delete, `/char/${ user }`, action.payload );
+        const charResponse = yield call( axios.delete, `/api/chars/${ id }`, action.payload );
         yield put({ type: 'FETCH_CHARS' })
     }
     catch ( error ) {

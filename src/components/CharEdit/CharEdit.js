@@ -21,19 +21,53 @@ const styles = theme => ({
     },
   });
 
+  const mapStateToProps = ( reduxState ) => ({
+    user: reduxState.user,
+})
+
 class CharEdit extends Component {
     state = {
-        open: false
+        open: false,
+        char: {
+            id: this.props.charState.id,
+            username: this.props.user.userName,
+            charname: '',
+            strength: 0,
+            dexterity: 0,
+            intelligence: 0,
+            faith: 0
+        }
     }
 
     handleOpen = () => {
         console.log( 'test');
         this.setState({ open: true });
+        console.log( this.props.charState );
     };
     
     handleClose = () => {
         this.setState({ open: false });
     };
+
+    handleChange = ( key ) => event => {
+        this.setState({
+            char: {
+                ...this.state.char,
+                [ key ]: event.target.value
+            }
+        });
+    }
+
+    updateChar = () => {
+        this.setState({ char: {
+            // id: this.props.charState.id,
+            ...this.state.char,
+
+        }});
+        this.props.dispatch( { type: 'UPDATE_CHAR',
+        payload: this.state.char });
+        this.handleClose();
+    }
 
     render() {
         return(
@@ -57,8 +91,8 @@ class CharEdit extends Component {
                         label="Character Name"
                         type="Text"
                         fullWidth
-                        value={ this.props.charState.charname }
-                        onChange={ this.props.handleChange( 'charname' ) }
+                        value={ this.state.charname }
+                        onChange={ this.handleChange( 'charname' ) }
                         />
                         <TextField
                         autoFocus
@@ -66,8 +100,8 @@ class CharEdit extends Component {
                         id="name"
                         label="Strength"
                         type="number"
-                        value={ this.props.charState.strength }
-                        onChange={ this.props.handleChange( 'strength' ) }
+                        value={ this.state.strength }
+                        onChange={ this.handleChange( 'strength' ) }
                         />
                         <TextField
                         autoFocus
@@ -75,8 +109,8 @@ class CharEdit extends Component {
                         id="name"
                         label="Dexterity"
                         type="number"
-                        value={ this.props.charState.dexterity }     
-                        onChange={ this.props.handleChange( 'dexterity' ) }                               
+                        value={ this.state.dexterity }     
+                        onChange={ this.handleChange( 'dexterity' ) }                               
                         />
                         <TextField
                         autoFocus
@@ -84,8 +118,8 @@ class CharEdit extends Component {
                         id="name"
                         label="Intelligence"
                         type="number"
-                        value={ this.props.charState.intelligence }
-                        onChange={ this.props.handleChange( 'intelligence' ) }
+                        value={ this.state.intelligence }
+                        onChange={ this.handleChange( 'intelligence' ) }
                         />
                         <TextField
                         autoFocus
@@ -93,15 +127,15 @@ class CharEdit extends Component {
                         id="name"
                         label="Faith"
                         type="number"
-                        value={ this.props.charState.faith }
-                        onChange={ this.props.handleChange( 'faith' ) }
+                        value={ this.state.faith }
+                        onChange={ this.handleChange( 'faith' ) }
                         />
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={this.props.closeStats} color="primary">
+                        <Button onClick={this.handleClose} color="primary">
                             Cancel
                         </Button>
-                        <Button onClick={() => this.props.updateChar( this.props.charState.id )} color="primary">
+                        <Button onClick={this.updateChar} color="primary">
                             Edit Character
                         </Button>
                         <Button onClick={this.props.handleDeleteOpen}>Delete</Button>
@@ -131,4 +165,4 @@ class CharEdit extends Component {
     }
 }
 
-export default compose(withStyles(styles))( CharEdit );
+export default compose(withStyles(styles), connect( mapStateToProps ))( CharEdit );
