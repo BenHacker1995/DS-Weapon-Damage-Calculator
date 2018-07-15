@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Link } from 'react-router-dom';
+import WepCat from '../WepCat/WepCat';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -27,6 +28,7 @@ const styles = theme => ({
 const mapStateToProps = ( reduxState ) => ({
     user: reduxState.user,
 
+    wepCats: reduxState.wep.wepCats,
     wepList: reduxState.wep.wepList
 })
 
@@ -45,6 +47,22 @@ class WepList extends Component {
 
     getCats = () => {
         this.props.dispatch({ type: 'FETCH_WEP_CATS' });
+    }
+
+    getWeps = ( id ) => {
+        this.props.dispatch({ type: 'FETCH_WEP_LIST', payload: id });
+    }
+
+    wepArr = [];
+    wepsList = ( id ) => {
+        this.getWeps( id );
+        this.wepArr.push( this.props.wepList );
+        return <ExpansionPanelDetails> { this.wepArr.map ( weps => {
+            <Link to={ weps.wepname } >
+            { weps.wepname }</Link>
+
+            })}  
+        </ExpansionPanelDetails>
     }
 
     render() {
@@ -82,15 +100,18 @@ class WepList extends Component {
                     </AppBar>
                 </div>
             <div>
-                { this.props.wepList.map ( weps => {
+                { this.props.wepCats.map ( wepCat => {
                     return (
-                        <ExpansionPanel key={ weps.id }>
-                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
-                            <ExpansionPanelDetails>
-                                <Typography>{ weps.wepcat }</Typography>
+                        <ExpansionPanel key={ wepCat.id }>
+                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}
+                            >
+                            <ExpansionPanelDetails onClick={ () => this.wepsList( wepCat.id )}>
+                                <Typography>{ wepCat.wepcat }</Typography>
                             </ExpansionPanelDetails>
                             </ExpansionPanelSummary>
-
+                            <ExpansionPanelDetails>
+                                { () => this.wepsList( wepCat.id )}
+                            </ExpansionPanelDetails>
                     </ExpansionPanel>
                 )})}  
             </div>

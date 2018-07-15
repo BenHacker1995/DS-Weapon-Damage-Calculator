@@ -46,9 +46,7 @@ class Character extends Component {
 
   render() {
     return (
-      <div>
-
-      </div>
+      null
     );
   }
 }

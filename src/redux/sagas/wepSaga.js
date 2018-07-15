@@ -3,6 +3,7 @@ import axios from 'axios';
 
 function* wepSaga() {
     yield takeEvery( 'FETCH_WEP_CATS', getCats );
+    yield takeEvery( 'FETCH_WEP_LIST', getWeps );
 }
 
 function* getCats( action ) {
@@ -18,7 +19,7 @@ function* getCats( action ) {
 function* getWeps( action ) {
     try {
         const wepResponse = yield call( axios.get, `/api/weps/${ action.payload }`);
-        yield put({ type: 'FETCH_', payload: wepResponse.data })
+        yield put({ type: 'SET_WEP_LIST', payload: wepResponse.data })
     }
     catch ( error ) {
         console.log( 'Error in getWeps', error );

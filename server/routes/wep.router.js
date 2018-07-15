@@ -15,7 +15,7 @@ router.get( '/', (req, res) => {
     });
 });
 
-router.get( '/:category', (req, res) => {
+router.get( '/:cat_id', (req, res) => {
   const queryText = 'SELECT * FROM weapon WHERE cat_id=$1;';
   pool.query( queryText, [ req.params.cat_id ] )
   .then( (result ) => { 
