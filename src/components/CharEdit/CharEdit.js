@@ -60,9 +60,7 @@ class CharEdit extends Component {
 
     updateChar = () => {
         this.setState({ char: {
-            // id: this.props.charState.id,
             ...this.state.char,
-
         }});
         this.props.dispatch( { type: 'UPDATE_CHAR',
         payload: this.state.char });

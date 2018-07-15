@@ -92,12 +92,10 @@ class CharList extends Component {
 
     editChar = (charState) => {
         return <CharEdit charState={ charState } />
-        // this.props.history.push( '/char/list');
     }
 
     deleteChar = ( charState ) => {
         return <CharDelete charState={ charState } />
-        // this.props.history.push( '/char/list');
     }
 
     render() {
