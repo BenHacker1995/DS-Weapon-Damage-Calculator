@@ -121,6 +121,16 @@ class CharList extends Component {
                                     </Typography>
                                 </ExpansionPanelDetails>
                             </ExpansionPanel>
+                            <ExpansionPanel>
+                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                    <Typography>Weapons</Typography>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <Typography>
+                                        <Link to="/weps">Weapon Categories</Link>
+                                    </Typography>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
                         </Tabs>
                     </AppBar>
                 </div>
