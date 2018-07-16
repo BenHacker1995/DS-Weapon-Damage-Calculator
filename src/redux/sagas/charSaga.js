@@ -52,4 +52,14 @@ function* deleteChar( action ) {
     }
 }
 
+function* selectList( action ) {
+    let id = action.payload.id;
+    try {
+        const charResponse = yield call( axios.get, `/api/char/${ id }` );
+        yield put({ type: 'FETCH_CHARS', payload: charResponse.data });
+    }
+    catch ( error ) {
+        console.log( 'Error in charList', error );
+    }
+}
 export default charSaga;

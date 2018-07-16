@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import { Link } from 'react-router-dom';
 import CharEdit from '../CharEdit/CharEdit';
 import CharDelete from '../CharDelete/CharDelete';
+import CharSelect from '../CharSelect/CharSelect';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -28,7 +29,8 @@ const styles = theme => ({
 
 const mapStateToProps = ( reduxState ) => ({
     user: reduxState.user,
-    charList: reduxState.char.charList
+    charList: reduxState.char.charList,
+    char: reduxState.char.char
 })
 
 class CharList extends Component {
@@ -98,6 +100,10 @@ class CharList extends Component {
         return <CharDelete charState={ charState } />
     }
 
+    selectChar = ( charState ) => {
+        return <CharSelect charState={ charState } />
+    }
+
     render() {
         return (
             <div>
@@ -133,6 +139,7 @@ class CharList extends Component {
                     </AppBar>
                 </div>
             <div>
+                <pre>{JSON.stringify( this.props.char )}</pre>
                 { this.props.charList.map ( charState => {
                     return (
                         <ExpansionPanel key={ charState.id }>
@@ -166,10 +173,13 @@ class CharList extends Component {
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails>
                                 <Typography>
-                            { this.editChar( charState) }
+                            { this.editChar( charState ) }
                                 </Typography>
                                 <Typography>
-                            { this.deleteChar( charState) }
+                            { this.deleteChar( charState ) }
+                                </Typography>
+                                <Typography>
+                            { this.selectChar( charState ) }
                                 </Typography>
                         </ExpansionPanelDetails>
                     </ExpansionPanel>

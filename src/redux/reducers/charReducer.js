@@ -17,8 +17,17 @@ const charList = ( state = [], action ) => {
     }
 }
 
+const char = ( state = [], action ) => {
+    switch( action.type ) {
+        case 'SELECT_CHAR' : state = []; state.push( action.payload ); return state;
+    default:
+        return state;
+    }
+}
+
 const store = combineReducers({
-    charList
+    charList,
+    char
 });
 
 export default store;
