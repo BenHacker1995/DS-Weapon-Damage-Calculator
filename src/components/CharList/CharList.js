@@ -79,6 +79,14 @@ class CharList extends Component {
         return <CharDelete charState={ charState } />
     }
 
+    charSelector = ( charState ) => {
+        return <CharSelect charState={ charState } />
+    }
+
+    selectedChar = () => {
+        return <SelectedChar charState={ this.props.char }/>
+    }
+
     selectChar = ( charState ) => {
         return <CharSelect charState={ charState } />
     }
@@ -87,8 +95,8 @@ class CharList extends Component {
         return (
             <div>
                 <TabsBar />
-                <SelectedChar />
-            <div>
+                <SelectedChar charState={ this.props.char }/>
+                <div>
                 <pre>{JSON.stringify( this.props.char )}</pre>
                 { this.props.charList.map ( charState => {
                     return (

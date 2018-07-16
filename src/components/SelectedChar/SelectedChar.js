@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import CharEdit from '../CharEdit/CharEdit';
 import { withStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -26,34 +27,57 @@ const mapStateToProps = ( reduxState ) => ({
 
 class SelectedChar extends Component {
 
+
+    componentDidMount() {
+        this.charSelect();
+    }
+
+    editPopup = ( selectedChar ) => { 
+        return <CharEdit charState={ selectedChar } />
+    }
+
+    editChar = ( selectedChar ) => {
+        this.editPopup( selectedChar );
+        this.props.dispatch( { type: 'UPDATE_CHAR', payload: selectedChar });
+        this.props.dispatch( { type: 'SELECT_CHAR', payload: selectedChar });
+    }
+
+    charSelect = () => {
+
+    // </div>
+    }
+
     render() {
         return(
             <div>
-                { this.props.char.map ( charState => {
-                return (
-                    <ExpansionPanel>
-                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                <ExpansionPanelDetails>
-                                    <Typography>Selected Character: { charState.charname }</Typography>
-                                </ExpansionPanelDetails>
-                            </ExpansionPanelSummary>
+            { this.props.char.map( selectedChar => {
+            return (
+                <ExpansionPanel>
+                        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                             <ExpansionPanelDetails>
-                                <Typography>
-                                    Strength: { charState.strength }
-                                </Typography>                             
-                                <Typography>
-                                    Dexterity: { charState.dexterity }
-                                </Typography>                              
-                                <Typography>
-                                    Intelligence: { charState.intelligence }
-                                </Typography>                           
-                                <Typography>
-                                    Faith: { charState.faith }
-                                </Typography>
+                                <Typography>Selected Character: { selectedChar.charname }</Typography>
                             </ExpansionPanelDetails>
-                    </ExpansionPanel>
-
-                )})}  
+                        </ExpansionPanelSummary>
+                        <ExpansionPanelDetails>
+                            <Typography>
+                                Strength: { selectedChar.strength }
+                            </Typography>                             
+                            <Typography>
+                                Dexterity: { selectedChar.dexterity }
+                            </Typography>                              
+                            <Typography>
+                                Intelligence: { selectedChar.intelligence }
+                            </Typography>                           
+                            <Typography>
+                                Faith: { selectedChar.faith }
+                            </Typography>
+                            <Typography>
+                        { this.editPopup( selectedChar ) }
+                            </Typography>
+                        </ExpansionPanelDetails>
+                </ExpansionPanel>
+    
+            )})}  
             </div>
 
         )

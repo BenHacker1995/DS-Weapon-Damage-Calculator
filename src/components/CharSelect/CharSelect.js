@@ -29,12 +29,6 @@ class CharSelect extends Component {
         open: false,
         char: {
             id: this.props.charState.id,
-            // username: this.props.user.userName,
-            // charname: this.props.charState.char,
-            // strength: this.props.charState.strength,
-            // dexterity: 0,
-            // intelligence: 0,
-            // faith: 0
         }
     }
 

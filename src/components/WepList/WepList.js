@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Link } from 'react-router-dom';
+import SelectedChar from '../SelectedChar/SelectedChar';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
@@ -97,6 +98,9 @@ class WepList extends Component {
                             </ExpansionPanel>
                         </Tabs>
                     </AppBar>
+                </div>
+                <div>
+                    <SelectedChar />
                 </div>
             <div>
                 { this.props.wepCats.map ( wepCat => {

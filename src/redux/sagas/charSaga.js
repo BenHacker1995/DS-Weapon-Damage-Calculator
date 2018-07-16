@@ -30,10 +30,11 @@ function* charList( action ) {
 }
 
 function* updateChar( action ) {
-    let id = action.payload.id;
+    let id = action.payload.id || action.payload;
     try {
         const charResponse = yield call( axios.put, `/api/char/${ id }`, action.payload );
-        yield put({ type: 'FETCH_CHARS' })
+        yield put({ type: 'FETCH_CHARS' });
+        yield put({ type: 'SELECT_CHAR', payload: id })
     }
     catch ( error ) {
         console.log( 'Error in updateChar', error );
@@ -54,9 +55,9 @@ function* deleteChar( action ) {
 }
 
 function* selectChar( action ) {
-    let id = action.payload;
+    console.log( action.payload );
     try {
-        const charResponse = yield call( axios.get, `/api/char/${ id }` );
+        const charResponse = yield call( axios.get, `/api/char/${ action.payload }` );
         yield put({ type: 'SET_CHAR', payload: charResponse.data });
     }
     catch ( error ) {
