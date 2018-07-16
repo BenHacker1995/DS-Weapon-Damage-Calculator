@@ -20,6 +20,7 @@ const charList = ( state = [], action ) => {
 const char = ( state = [], action ) => {
     switch( action.type ) {
         case 'SELECT_CHAR' : state = []; state.push( action.payload ); return state;
+        case 'SET_CHAR' : return [ ...action.payload ];
     default:
         return state;
     }

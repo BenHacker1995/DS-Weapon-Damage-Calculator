@@ -6,6 +6,7 @@ function* charSaga() {
     yield takeEvery( 'FETCH_CHARS', charList );
     yield takeEvery( 'UPDATE_CHAR', updateChar );
     yield takeEvery( 'DELETE_CHAR', deleteChar );
+    yield takeEvery( 'SELECT_CHAR', selectChar );
 }
 
 function* newChar( action ) {
@@ -52,11 +53,11 @@ function* deleteChar( action ) {
     }
 }
 
-function* selectList( action ) {
-    let id = action.payload.id;
+function* selectChar( action ) {
+    let id = action.payload;
     try {
         const charResponse = yield call( axios.get, `/api/char/${ id }` );
-        yield put({ type: 'FETCH_CHARS', payload: charResponse.data });
+        yield put({ type: 'SET_CHAR', payload: charResponse.data });
     }
     catch ( error ) {
         console.log( 'Error in charList', error );

@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { Link } from 'react-router-dom';
+import TabsBar from '../TabsBar/TabsBar';
+import SelectedChar from '../SelectedChar/SelectedChar';
 import CharEdit from '../CharEdit/CharEdit';
 import CharDelete from '../CharDelete/CharDelete';
 import CharSelect from '../CharSelect/CharSelect';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -72,26 +71,6 @@ class CharList extends Component {
         this.props.dispatch({ type: 'FETCH_CHARS', payload: this.props.user.userName });
     }
 
-    handleDeleteOpen = ( id ) => {
-        this.setState({
-          openDelete: true,
-            char: { id: id } 
-        });
-    };
-    
-    handleDeleteClose = () => {
-        this.setState({ openDelete: false });
-    };
-
-    updateChar() {
-        this.setState({ char: {
-            id: this.props.charState.id,
-            username: this.props.user.userName}});
-        this.props.dispatch( { type: 'UPDATE_CHAR',
-        payload: this.state.char });
-        this.handleStatsClose();
-    }
-
     editChar = (charState) => {
         return <CharEdit charState={ charState } />
     }
@@ -107,37 +86,8 @@ class CharList extends Component {
     render() {
         return (
             <div>
-                <div>
-                    <AppBar position="static">
-                        <Tabs>
-                            <ExpansionPanel>
-                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                    <Typography>Characters</Typography>
-                                </ExpansionPanelSummary>
-                                <ExpansionPanelDetails>
-                                    <Typography>
-                                        <Link to="/char/create">Create a Character</Link>
-                                    </Typography>
-                                </ExpansionPanelDetails>
-                                <ExpansionPanelDetails disabled>
-                                    <Typography>
-                                        Your Characters
-                                    </Typography>
-                                </ExpansionPanelDetails>
-                            </ExpansionPanel>
-                            <ExpansionPanel>
-                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                    <Typography>Weapons</Typography>
-                                </ExpansionPanelSummary>
-                                <ExpansionPanelDetails>
-                                    <Typography>
-                                        <Link to="/weps">Weapon Categories</Link>
-                                    </Typography>
-                                </ExpansionPanelDetails>
-                            </ExpansionPanel>
-                        </Tabs>
-                    </AppBar>
-                </div>
+                <TabsBar />
+                <SelectedChar />
             <div>
                 <pre>{JSON.stringify( this.props.char )}</pre>
                 { this.props.charList.map ( charState => {
