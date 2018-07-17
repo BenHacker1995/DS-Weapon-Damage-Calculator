@@ -7,7 +7,7 @@ router.get( '/', (req, res) => {
     const queryText = 'SELECT * FROM category;';
     pool.query( queryText )
     .then( (result ) => { 
-      console.log( result.rows );
+      console.log( 'categories', result.rows );
       res.send( result.rows ); })
     .catch( ( error ) => {
       console.log( 'Error completing SELECT query', error );
@@ -16,7 +16,7 @@ router.get( '/', (req, res) => {
 });
 
 router.get( '/:cat_id', (req, res) => {
-  const queryText = 'SELECT * FROM weapon WHERE cat_id=$1;';
+  const queryText = 'SELECT id, wepname FROM weapon WHERE cat_id=$1;';
   pool.query( queryText, [ req.params.cat_id ] )
   .then( (result ) => { 
     console.log( result.rows );

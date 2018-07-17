@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Link } from 'react-router-dom';
+import TabsBar from '../TabsBar/TabsBar';
 import SelectedChar from '../SelectedChar/SelectedChar';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -29,7 +30,8 @@ const mapStateToProps = ( reduxState ) => ({
     user: reduxState.user,
 
     wepCats: reduxState.wep.wepCats,
-    wepList: reduxState.wep.wepList
+    wepList: reduxState.wep.wepList,
+    wepsFromCats: reduxState.wep.wepsFromCats
 })
 
 class WepList extends Component {
@@ -37,6 +39,7 @@ class WepList extends Component {
 
     componentDidMount() {
         this.getCats();
+        this.getWeps();
     }
 
     componentDidUpdate() {
@@ -49,76 +52,57 @@ class WepList extends Component {
         this.props.dispatch({ type: 'FETCH_WEP_CATS' });
     }
 
-    getWeps = ( id ) => {
-        this.props.dispatch({ type: 'FETCH_WEP_LIST', payload: id });
+    getWeps() {
+        this.props.dispatch({ type: 'FETCH_WEP_LIST'});
     }
 
-    wepArr = [];
-    wepsList = ( id ) => {
-        this.getWeps( id );
-        this.wepArr.push( this.props.wepList );
-        return <ExpansionPanelDetails> { this.wepArr.map ( weps => {
-            <Link to={ weps.wepname } >
-            { weps.wepname }</Link>
+    getWepsByCat = ( id ) => {
+        this.props.dispatch({ type: 'FETCH_WEPS_FROM_CATS', payload: id });
+        
+    }
 
-            })}  
-        </ExpansionPanelDetails>
+    catsList = () => {
+        return ( 
+        <div>
+        { this.props.wepCats.map( wepCat => {
+            return (
+                <ExpansionPanel key={ wepCat.id }
+                onChange={ () => this.getWepsByCat( wepCat.id )}>
+                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                    <ExpansionPanelDetails>
+                        <Typography>{ wepCat.wepcat }</Typography>
+                    </ExpansionPanelDetails>
+                    </ExpansionPanelSummary>
+                    { this.wepsList}
+            </ExpansionPanel>
+        )})}  
+    </div>
+        )
+    }
+
+    wepsList = () => {
+        console.log( 'wepsfromcats', this.props.wepsFromCats );
+        return (
+            <div>
+            { this.props.wepsFromCats.map ( wep => {
+                <p>{ JSON.stringify( wep )}</p>
+            })}
+            </div>
+        )
     }
 
     render() {
         return (
             <div>
-                <div>
-                    <AppBar position="static">
-                        <Tabs>
-                            <ExpansionPanel>
-                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                    <Typography>Characters</Typography>
-                                </ExpansionPanelSummary>
-                                <ExpansionPanelDetails>
-                                    <Typography>
-                                        <Link to="/char/create">Create a Character</Link>
-                                    </Typography>
-                                </ExpansionPanelDetails>
-                                <ExpansionPanelDetails disabled>
-                                    <Typography>
-                                        Your Characters
-                                    </Typography>
-                                </ExpansionPanelDetails>
-                            </ExpansionPanel>
-                            <ExpansionPanel>
-                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                    <Typography>Weapons</Typography>
-                                </ExpansionPanelSummary>
-                                <ExpansionPanelDetails>
-                                    <Typography>
-                                        <Link to="/weps">Weapon Categories</Link>
-                                    </Typography>
-                                </ExpansionPanelDetails>
-                            </ExpansionPanel>
-                        </Tabs>
-                    </AppBar>
-                </div>
+                <TabsBar />
                 <div>
                     <SelectedChar />
                 </div>
-            <div>
-                { this.props.wepCats.map ( wepCat => {
-                    return (
-                        <ExpansionPanel key={ wepCat.id }>
-                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}
-                            >
-                            <ExpansionPanelDetails onClick={ () => this.wepsList( wepCat.id )}>
-                                <Typography>{ wepCat.wepcat }</Typography>
-                            </ExpansionPanelDetails>
-                            </ExpansionPanelSummary>
-                            <ExpansionPanelDetails>
-                                { () => this.wepsList( wepCat.id )}
-                            </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                )})}  
+                <div>
+                    { this.catsList() }
+
+                </div>
             </div>
-        </div>
     )}}
 
 export default compose(withStyles(styles),connect( mapStateToProps ))( WepList );

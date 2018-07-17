@@ -11,7 +11,8 @@ const passport = require('./strategies/user.strategy');
 // Route includes
 const userRouter = require('./routes/user.router');
 const charsRouter = require( './routes/chars.router');
-const wepsRouter = require( './routes/wep.router' );
+const wepcatRouter = require( './routes/wep.cat.router' );
+const weplistRouter = require( './routes/wep.list.router' );
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -27,7 +28,8 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 app.use( '/api/char', charsRouter );
-app.use( '/api/weps', wepsRouter );
+app.use( '/api/weps/cat', wepcatRouter );
+app.use( '/api/weps/list', weplistRouter );
 // Serve static files
 app.use(express.static('build'));
 

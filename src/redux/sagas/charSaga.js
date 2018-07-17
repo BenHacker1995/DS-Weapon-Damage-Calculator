@@ -42,8 +42,6 @@ function* updateChar( action ) {
 }
 
 function* deleteChar( action ) {
-    console.log( action.payload );
-    let user = action.payload.username;
     let id = action.payload.id;
     try {
         const charResponse = yield call( axios.delete, `/api/char/${ id }` );
@@ -55,7 +53,6 @@ function* deleteChar( action ) {
 }
 
 function* selectChar( action ) {
-    console.log( action.payload );
     try {
         const charResponse = yield call( axios.get, `/api/char/${ action.payload }` );
         yield put({ type: 'SET_CHAR', payload: charResponse.data });
