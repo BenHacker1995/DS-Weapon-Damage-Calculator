@@ -42,11 +42,6 @@ class SelectedChar extends Component {
         this.props.dispatch( { type: 'SELECT_CHAR', payload: selectedChar });
     }
 
-    charSelect = () => {
-
-    // </div>
-    }
-
     render() {
         return(
             <div>

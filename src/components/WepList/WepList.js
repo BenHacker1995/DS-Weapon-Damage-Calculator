@@ -80,19 +80,13 @@ class WepList extends Component {
 
     wepsByCategory;
     wepsFromCats = ( id ) => {
-        // for( let i = 0; i < 16; i ++ ) {
-        //     if( i + 1 === id ) {
-        //         this.wepsByCategory = this.props.wepsFromCats[ i ];
-        //         console.log( this.wepsByCategory );
-        //     }
-            this.wepsByCategory = this.props.wepsFromCats[ id - 1 ];
-            console.log( this.wepsByCategory );
-            return this.wepsByCategory.map( wep => { return wep.wepname })
-                // <ExpansionPanelDetails>
-                //     <Typography>{wep.wepname}</Typography>
-                // </ExpansionPanelDetails>
-                // wep.wepname})
-        // }
+        this.wepsByCategory = this.props.wepsFromCats[ id - 1 ];
+        console.log( this.wepsByCategory );
+        return this.wepsByCategory.map( wep => { 
+            return <ExpansionPanelDetails>
+            <Typography>{wep.wepname}</Typography>
+            </ExpansionPanelDetails>
+        })
     }
 
     render() {
@@ -106,16 +100,13 @@ class WepList extends Component {
                     { this.props.wepCats.map( wepCat => {
                         return (
                             <ExpansionPanel key={ wepCat.id }
-                            // onChange={ () => this.getWepsByCat( wepCat.id )}>
                             >
                                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                                 <ExpansionPanelDetails>
                                     <Typography>{ wepCat.wepcat }</Typography>
                                 </ExpansionPanelDetails>
                                 </ExpansionPanelSummary>
-                                <ExpansionPanelDetails>
-                                    <Typography>{ this.wepsFromCats( wepCat.id ) }</Typography>
-                                </ExpansionPanelDetails>
+                                    { this.wepsFromCats( wepCat.id ) }
                             </ExpansionPanel>
                         )
                     })}
