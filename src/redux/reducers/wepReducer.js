@@ -20,7 +20,8 @@ const wepCats = ( state = [], action ) => {
 
 const wepsFromCats = ( state = [], action ) => {
     switch ( action.type ) {
-        case 'SET_WEPS_FROM_CATS' : return action.payload;
+        // case 'SET_WEPS_FROM_CATS' : return action.payload;
+        case 'GET_WEP_LISTS' : return action.payload;
         default:
             return state;
     }

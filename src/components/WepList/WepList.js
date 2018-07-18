@@ -36,10 +36,11 @@ const mapStateToProps = ( reduxState ) => ({
 
 class WepList extends Component {
 
-
     componentDidMount() {
-        this.getCats();
+        // this.getWepsByCat();
         this.getWeps();
+        this.getCats();
+        this.getWepsByCat();
     }
 
     componentDidUpdate() {
@@ -53,42 +54,45 @@ class WepList extends Component {
     }
 
     getWeps() {
-        this.props.dispatch({ type: 'FETCH_WEP_LIST'});
+        this.props.dispatch({ type: 'FETCH_WEP_LIST' })
+        this.getWepsByCat();
     }
 
-    getWepsByCat = ( id ) => {
-        this.props.dispatch({ type: 'FETCH_WEPS_FROM_CATS', payload: id });
+    getWepsByCat = () => {
+        console.log( 'getWepsByCat' );
+        this.wepsByCat();
+        this.props.dispatch({ type: 'GET_WEP_LISTS', payload: this.wepsByCatArr })
+    }
+
+    wepsByCatArr = [];
+    wepsByCat = () => {
+        for( let id = 1; id < 17; id ++ ) {
+            let wepsByCatId = this.props.wepList.filter( wep => { 
+               console.log( 'catid', wep.cat_id, 'id', id );
+                return wep.cat_id === id 
+            });
+                // let wepsByCatId = this.props.wepList.filter( this.isWepCatId( this.props.wepList.cat_id, id ));
+                this.wepsByCatArr.push( wepsByCatId );
+            }
         
+        console.log( 'Array', this.wepsByCatArr );
     }
 
-    catsList = () => {
-        return ( 
-        <div>
-        { this.props.wepCats.map( wepCat => {
-            return (
-                <ExpansionPanel key={ wepCat.id }
-                onChange={ () => this.getWepsByCat( wepCat.id )}>
-                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                    <ExpansionPanelDetails>
-                        <Typography>{ wepCat.wepcat }</Typography>
-                    </ExpansionPanelDetails>
-                    </ExpansionPanelSummary>
-                    { this.wepsList}
-            </ExpansionPanel>
-        )})}  
-    </div>
-        )
-    }
-
-    wepsList = () => {
-        console.log( 'wepsfromcats', this.props.wepsFromCats );
-        return (
-            <div>
-            { this.props.wepsFromCats.map ( wep => {
-                <p>{ JSON.stringify( wep )}</p>
-            })}
-            </div>
-        )
+    wepsByCategory;
+    wepsFromCats = ( id ) => {
+        // for( let i = 0; i < 16; i ++ ) {
+        //     if( i + 1 === id ) {
+        //         this.wepsByCategory = this.props.wepsFromCats[ i ];
+        //         console.log( this.wepsByCategory );
+        //     }
+            this.wepsByCategory = this.props.wepsFromCats[ id - 1 ];
+            console.log( this.wepsByCategory );
+            return this.wepsByCategory.map( wep => { return wep.wepname })
+                // <ExpansionPanelDetails>
+                //     <Typography>{wep.wepname}</Typography>
+                // </ExpansionPanelDetails>
+                // wep.wepname})
+        // }
     }
 
     render() {
@@ -99,8 +103,22 @@ class WepList extends Component {
                     <SelectedChar />
                 </div>
                 <div>
-                    { this.catsList() }
-
+                    { this.props.wepCats.map( wepCat => {
+                        return (
+                            <ExpansionPanel key={ wepCat.id }
+                            // onChange={ () => this.getWepsByCat( wepCat.id )}>
+                            >
+                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                <ExpansionPanelDetails>
+                                    <Typography>{ wepCat.wepcat }</Typography>
+                                </ExpansionPanelDetails>
+                                </ExpansionPanelSummary>
+                                <ExpansionPanelDetails>
+                                    <Typography>{ this.wepsFromCats( wepCat.id ) }</Typography>
+                                </ExpansionPanelDetails>
+                            </ExpansionPanel>
+                        )
+                    })}
                 </div>
             </div>
     )}}
