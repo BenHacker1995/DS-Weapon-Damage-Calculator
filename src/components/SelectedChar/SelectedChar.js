@@ -28,9 +28,9 @@ const mapStateToProps = ( reduxState ) => ({
 class SelectedChar extends Component {
 
 
-    componentDidMount() {
-        this.charSelect();
-    }
+    // componentDidMount() {
+    //     this.charSelect();
+    // }
 
     editPopup = ( selectedChar ) => { 
         return <CharEdit charState={ selectedChar } />

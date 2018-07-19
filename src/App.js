@@ -13,6 +13,10 @@ import Character from './components/Character/Character';
 import CharCreate from './components/CharCreate/CharCreate';
 import CharList from './components/CharList/CharList';
 import WepList from './components/WepList/WepList';
+import WepTemplate from './components/WepCats/WepTemplate';
+
+import Wep30 from './components/WepCats/WepCat4/Wep30';
+
 
 import './styles/main.css';
 
@@ -46,6 +50,11 @@ const App = () => (
           exact path="/weps"
           component={ WepList }
         />
+        <Route
+        exact path={`/data/30`}
+        component={ Wep30 }
+        />
+
         {/* OTHERWISE (no path!) */}
         <Route render={() => <h1>404</h1>} />
 

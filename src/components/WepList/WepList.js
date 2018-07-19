@@ -5,8 +5,6 @@ import { Link } from 'react-router-dom';
 import TabsBar from '../TabsBar/TabsBar';
 import SelectedChar from '../SelectedChar/SelectedChar';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -84,9 +82,14 @@ class WepList extends Component {
         console.log( this.wepsByCategory );
         return this.wepsByCategory.map( wep => { 
             return <ExpansionPanelDetails>
-            <Typography>{wep.wepname}</Typography>
+            <Typography><Link to={ this.wepLink( wep.id ) }>{wep.wepname}</Link></Typography>
             </ExpansionPanelDetails>
         })
+    }
+
+    wepLink = ( id ) => {
+        console.log( id );
+        return `/data/${ id }`
     }
 
     render() {

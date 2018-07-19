@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 router.get( '/', (req, res) => {
-    const queryText = 'SELECT wepname, cat_id FROM weapon;';
+    const queryText = 'SELECT id, wepname, cat_id FROM weapon;';
     pool.query( queryText )
     .then( (result ) => { 
       console.log( 'weapons', result.rows );
