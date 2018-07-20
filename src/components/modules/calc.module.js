@@ -91,31 +91,28 @@ class CalcModule {
 
         return {
             wepname: this.details.wepname,
-            damages: {
+            
                 physdmg: this.phys,
                 magicdmg: this.magic,
                 firedmg: this.fire,
                 ltngdmg: this.lightning,
-                totaldmg: this.total
-            },
-            rating: {
+                totaldmg: this.total,
+
                 strength: this.StrRating,
                 dexteriy: this.DexRating,
                 intelligence: this.IntRating,
-                faith: this.FaithRating
-            },
-            scaling: {
+                faith: this.FaithRating,
+
                 strscale: this.StrScale,
                 dexscale: this.DexScale,
                 intscale: this.IntScale,
-                faithscale: this.FaithScale
-            },
-            req: {
+                faithscale: this.FaithScale,
+
                 strreq: this.details.strreq,
                 dexreq: this.details.dexreq,
                 intreq: this.details.intreq,
                 faithreq: this.details.faithreq
-            }
+            
         }
     }
 }

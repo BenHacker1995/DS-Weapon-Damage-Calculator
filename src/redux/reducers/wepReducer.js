@@ -43,7 +43,6 @@ const store = combineReducers({
     wepCats,
     wepList,
     wepsFromCats,
-    // wepDamages,
     wepDetails
 });
 
