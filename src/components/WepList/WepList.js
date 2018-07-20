@@ -56,7 +56,6 @@ class WepList extends Component {
     }
 
     getWepsByCat = () => {
-        console.log( 'getWepsByCat' );
         this.wepsByCat();
         this.props.dispatch({ type: 'GET_WEP_LISTS', payload: this.wepsByCatArr })
     }
@@ -65,20 +64,15 @@ class WepList extends Component {
     wepsByCat = () => {
         for( let id = 1; id < 17; id ++ ) {
             let wepsByCatId = this.props.wepList.filter( wep => { 
-               console.log( 'catid', wep.cat_id, 'id', id );
                 return wep.cat_id === id 
             });
                 this.wepsByCatArr.push( wepsByCatId );
-            }
-        
-        console.log( 'Array', this.wepsByCatArr );
+        }        
     }
 
     wepsByCategory;
     wepsFromCats = ( id ) => {
         this.wepsByCategory = this.props.wepsFromCats[ id - 1 ];
-        console.log( this.wepsByCategory );
-
         return this.wepsByCategory.map( wep => { 
             return <ExpansionPanelDetails>
             <Typography>
@@ -90,7 +84,6 @@ class WepList extends Component {
     }
 
     wepLink = ( id ) => {
-        console.log( id );
         return `/data/${ id }`
     }
 

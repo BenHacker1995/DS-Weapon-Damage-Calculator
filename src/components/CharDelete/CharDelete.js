@@ -41,7 +41,6 @@ class CharDelete extends Component {
     };
     
     deleteChar = () => {
-        console.log( 'PAYLOAD: ', this.state.char );        
         this.props.dispatch( { type: 'DELETE_CHAR', payload: this.state.char });
         this.handleClose();
     }

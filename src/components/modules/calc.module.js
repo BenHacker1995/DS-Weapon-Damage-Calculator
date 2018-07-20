@@ -3,11 +3,9 @@ class CalcModule {
     constructor( details, char ) {
         this.details = details;
         this.char = char;
-        console.log( this.details, this.char )
     }
 
     StrDexRating = ( stat ) => {
-        console.log( 'str/dex', stat );
         if( stat >= 10 && stat < 20 ) {
             let inclvl = .035;
             let lvl = stat - 10;
@@ -32,7 +30,6 @@ class CalcModule {
     }
 
     IntFaithRating = ( stat ) => {
-        console.log( 'int/faith', stat );
         if( stat >= 10 && stat < 30 ) {
             let inclvl = .0225;
             let lvl = stat - 10;
@@ -57,8 +54,6 @@ class CalcModule {
     }
 
     damages = () => {
-        console.log( 'char', this.char );
-        console.log( 'details', this.details );
         this.basePhys = this.details.physdmg;
         this.baseMagic = this.details.magicdmg;
         this.baseFire = this.details.firedmg;
@@ -86,9 +81,7 @@ class CalcModule {
         this.fire = this.baseFire;
         this.lightning = this.baseLightning;
         this.total = this.phys + this.magic + this.fire + this.lightning;
-
-        console.log( this.details );
-
+        
         return {
             wepname: this.details.wepname,
             

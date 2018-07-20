@@ -29,10 +29,8 @@ class Character extends Component {
 
   redirectChar() {
     let charArr = [];
-    console.log( 'redirectChar' );
     for ( let i in this.props.charList ) {
       if ( this.props.charList.length > 0) {
-        console.log(i);
       charArr.push( i );
       }
     }

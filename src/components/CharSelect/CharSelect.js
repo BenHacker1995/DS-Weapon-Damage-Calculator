@@ -41,7 +41,6 @@ class CharSelect extends Component {
     };
     
     selectChar = () => {
-        console.log( 'PAYLOAD: ', this.state.char );        
         this.props.dispatch( { type: 'SELECT_CHAR', payload: this.props.charState.id });
         this.handleClose();
     }

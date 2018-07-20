@@ -40,9 +40,7 @@ class CharEdit extends Component {
     }
 
     handleOpen = () => {
-        console.log( 'test');
         this.setState({ open: true });
-        console.log( this.props.charState );
     };
     
     handleClose = () => {
