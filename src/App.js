@@ -13,7 +13,6 @@ import Character from './components/Character/Character';
 import CharCreate from './components/CharCreate/CharCreate';
 import CharList from './components/CharList/CharList';
 import WepList from './components/WepList/WepList';
-import WepTemplate from './components/WepCats/WepTemplate';
 
 import Wep30 from './components/WepCats/WepCat4/Wep30';
 
@@ -21,7 +20,7 @@ import Wep30 from './components/WepCats/WepCat4/Wep30';
 import './styles/main.css';
 
 const App = () => (
-  <div>
+  <div className="bg">
     <Header title="Dark Souls Attack Rating Calculator" />
     <Router>
       <Switch>

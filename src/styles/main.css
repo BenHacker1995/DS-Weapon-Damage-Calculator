@@ -1,5 +1,15 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.bg { 
+    background-image: url("dark_souls_remastered_crop.jpg");
+
+    height: 100vh; 
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .instructions h1 {

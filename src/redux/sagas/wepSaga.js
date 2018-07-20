@@ -1,12 +1,10 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import axios from 'axios';
-import CalcModule from '../../components/modules/calc.module';
 
 function* wepSaga() {
     yield takeEvery( 'FETCH_WEP_CATS', getCats );
     yield takeEvery( 'FETCH_WEP_LIST', getWepNames );
     yield takeEvery( 'FETCH_WEP_DETAIL', getWepDetails );
-    // yield takeEvery( 'FETCH_DAMAGES', getWepDamage );
 }
 
 function* getCats( action ) {
@@ -48,15 +46,6 @@ function* getWepDetails( action ) {
     catch ( error ) {
         console.log( 'Error in getWeps', error );
     }
-}
-
-function* getWepDamage( action ) {
-    try {
-    }
-    catch ( error ) {
-        console.log( 'Error in getWepDamage', error )
-    }
-}
-    
+}   
 
 export default wepSaga;
