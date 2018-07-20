@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import { Link } from 'react-router-dom';
 import TabsBar from '../TabsBar/TabsBar';
 import SelectedChar from '../SelectedChar/SelectedChar';
+import WepDamageCalc from '../WepDamageCalc/WepDamageCalc';
 import { withStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -80,9 +81,14 @@ class WepList extends Component {
     wepsFromCats = ( id ) => {
         this.wepsByCategory = this.props.wepsFromCats[ id - 1 ];
         console.log( this.wepsByCategory );
+
         return this.wepsByCategory.map( wep => { 
             return <ExpansionPanelDetails>
-            <Typography><Link to={ this.wepLink( wep.id ) }>{wep.wepname}</Link></Typography>
+            <Typography>
+                <Link to={ this.wepLink( wep.id ) }>
+                {wep.wepname}</Link>
+                {/* <WepDamageCalc id={ wep.id } wep={ wep } /> */}
+            </Typography>
             </ExpansionPanelDetails>
         })
     }
@@ -91,6 +97,13 @@ class WepList extends Component {
         console.log( id );
         return `/data/${ id }`
     }
+
+    wepData = ( id ) => {
+        this.props.dispatch({ type: 'FETCH_WEP_DETAIL', payload: id });
+        // return <WepDamageCalc id={ id } />
+    }
+
+
 
     render() {
         return (

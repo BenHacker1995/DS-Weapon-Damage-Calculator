@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import CalcModule from '../../components/modules/calc.module';
 
 const wepList = ( state = [], action ) => {
     switch ( action.type ) {
@@ -26,17 +27,13 @@ const wepsFromCats = ( state = [], action ) => {
     }
 }
 
-const wepDamages = ( state = [], action ) => {
-    switch ( action.type ) {
-        case 'SET_DAMAGES' : return action.payload;
-        default:
-            return state;
-    }
-}
+const wepDetails = ( state = {}, action ) => {
+    console.log( action.payload );
+    switch ( action.type ) {        
+        case 'SET_WEP_DETAIL' : const calc = new CalcModule( action.payload.details, action.payload.char  );
+        console.log( calc.damages() )
+        return calc.damages();
 
-const wepDetails = ( state = [], action ) => {
-    switch ( action.type ) {
-        case 'SET_WEP_DETAIL' : return action.payload;
         default:
             return state;
     }
@@ -46,7 +43,7 @@ const store = combineReducers({
     wepCats,
     wepList,
     wepsFromCats,
-    wepDamages,
+    // wepDamages,
     wepDetails
 });
 

@@ -3,21 +3,25 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = ( reduxState ) => ({
     char: reduxState.char.char,
-    details: reduxState.wep.wepDetails,
-    damages: reduxState.wep.wepDamages
+    details: reduxState.wep.wepDetails
 })
 
 class Wep30 extends Component {
 
     componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_WEP_DETAIL', payload: 30 })
+        this.fetchDetails();
+    }
+
+    fetchDetails = () => {
+        this.props.dispatch({ type: 'FETCH_WEP_DETAIL',
+        payload: { id: 30, char: this.props.char }});
     }
 
     render() {
         return(
             <div>
+            { JSON.stringify( this.props.char )}
             { JSON.stringify( this.props.details )}
-            { JSON.stringify( this.props.damages )}
             </div>
         )
     }
