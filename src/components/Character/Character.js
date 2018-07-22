@@ -7,7 +7,7 @@ import { triggerLogout } from '../../redux/actions/loginActions';
 
 const mapStateToProps = state => ({
   user: state.user,
-  charList: state.char.charList
+  charList: state.wep.charList
 });
 
 class Character extends Component {

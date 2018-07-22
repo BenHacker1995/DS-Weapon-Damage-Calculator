@@ -24,20 +24,27 @@ const styles = theme => ({
 
 const mapStateToProps = ( reduxState ) => ({
     user: reduxState.user,
-    char: reduxState.char.char,
+    char: reduxState.wep.char,
     details: reduxState.wep.wepDetails,
 })
 
 class Wep30 extends Component {
 
+    state = {
+        char: this.props.char
+    }
+
     componentDidMount() {
         this.fetchDetails();
         if (!this.props.user.isLoading && this.props.user.userName === null) {
             this.props.history.push('/home');
-          }
+        }
     }
 
     componentDidUpdate() {
+        if ( this.state.char !== this.props.char ) {
+            this.fetchDetails();
+        }
         if (!this.props.user.isLoading && this.props.user.userName === null) {
           this.props.history.push('/home');
         }

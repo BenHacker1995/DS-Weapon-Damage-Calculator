@@ -7,7 +7,7 @@ import { triggerLogin, formError, clearError } from '../../redux/actions/loginAc
 const mapStateToProps = state => ({
   user: state.user,
   login: state.login,
-  charList: state.char.charList
+  charList: state.wep.charList
 });
 
 class LoginPage extends Component {

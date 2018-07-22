@@ -23,6 +23,7 @@ const styles = theme => ({
 
   const mapStateToProps = ( reduxState ) => ({
     user: reduxState.user,
+    details: reduxState.wep.wepDetails
 })
 
 class CharEdit extends Component {
@@ -63,6 +64,10 @@ class CharEdit extends Component {
         this.props.dispatch( { type: 'UPDATE_CHAR',
         payload: this.state.char });
         this.handleClose();
+        if ( this.props.details.length !== 0 ) {
+            this.props.dispatch({ type: 'FETCH_WEP_DETAIL',
+            payload: { id: 30, char: this.state.char }});
+        }
     }
 
     render() {

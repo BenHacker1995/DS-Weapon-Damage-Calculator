@@ -28,8 +28,8 @@ const styles = theme => ({
 
 const mapStateToProps = ( reduxState ) => ({
     user: reduxState.user,
-    charList: reduxState.char.charList,
-    char: reduxState.char.char
+    charList: reduxState.wep.charList,
+    char: reduxState.wep.char
 })
 
 class CharList extends Component {
@@ -97,7 +97,6 @@ class CharList extends Component {
                 <TabsBar />
                 <SelectedChar charState={ this.props.char }/>
                 <div>
-                <pre>{JSON.stringify( this.props.char )}</pre>
                 { this.props.charList.map ( charState => {
                     return (
                         <ExpansionPanel key={ charState.id }>

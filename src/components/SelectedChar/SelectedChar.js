@@ -22,7 +22,8 @@ const styles = theme => ({
   });
 
 const mapStateToProps = ( reduxState ) => ({
-    char: reduxState.char.char
+    char: reduxState.wep.char,
+    details: reduxState.wep.wepDetails
 })
 
 class SelectedChar extends Component {
