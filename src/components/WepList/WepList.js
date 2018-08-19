@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import { Link } from 'react-router-dom';
 import TabsBar from '../TabsBar/TabsBar';
 import SelectedChar from '../SelectedChar/SelectedChar';
+import WepPage from '../WepPage/WepPage';
 import { withStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -26,7 +27,7 @@ const styles = theme => ({
 
 const mapStateToProps = ( reduxState ) => ({
     user: reduxState.user,
-
+    char: reduxState.wep.char,
     wepCats: reduxState.wep.wepCats,
     wepList: reduxState.wep.wepList,
     wepsFromCats: reduxState.wep.wepsFromCats
@@ -74,21 +75,18 @@ class WepList extends Component {
     wepsFromCats = ( id ) => {
         this.wepsByCategory = this.props.wepsFromCats[ id - 1 ];
         return this.wepsByCategory.map( wep => { 
-            return <ExpansionPanelDetails>
-            <Typography>
-                <Link to={ this.wepLink( wep.id ) }>
-                {wep.wepname}</Link>
-            </Typography>
+            return <ExpansionPanelDetails key={wep.id}>
+                    <Link to={`/data/${wep.id}`}
+                    onClick={() => this.fetchDetails(wep.id)}>
+                        {wep.wepname}
+                    </Link>
             </ExpansionPanelDetails>
         })
     }
 
-    wepLink = ( id ) => {
-        return `/data/${ id }`
-    }
-
-    wepData = ( id ) => {
-        this.props.dispatch({ type: 'FETCH_WEP_DETAIL', payload: id });
+    fetchDetails = (id) => {
+        this.props.dispatch({ type: 'FETCH_WEP_DETAIL',
+        payload: { id: id, char: this.props.char }});
     }
 
     render() {
