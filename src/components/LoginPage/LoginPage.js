@@ -5,7 +5,7 @@ import { triggerLogin, formError, clearError } from '../../redux/actions/loginAc
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField'
-
+import Slide from '@material-ui/core/Slide';
 
 const mapStateToProps = state => ({
   user: state.user,
@@ -21,6 +21,10 @@ class LoginPage extends Component {
       username: '',
       password: '',
     };
+  }
+
+  TransitionUp(props) {
+    return <Slide direction="up" {...props} />;
   }
 
   componentDidMount() {
@@ -72,7 +76,7 @@ class LoginPage extends Component {
     return (
       <div>
         { this.renderAlert() }
-        <Paper className='paper'>
+        <Paper className='paper' TransitionComponent={this.TransitionUp}>
           <h1>Login</h1>
           <div>
               <TextField

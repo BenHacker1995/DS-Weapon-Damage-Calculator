@@ -95,6 +95,5 @@ li a:hover {
     margin-left: 25vw;
     margin-right: 25vw;
     margin-top: 20vw;
-    padding-left: 17.5vw;
-    align-content: center;
+    text-align: center;
 }
