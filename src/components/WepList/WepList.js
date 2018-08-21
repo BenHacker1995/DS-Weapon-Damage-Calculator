@@ -4,7 +4,6 @@ import { compose } from 'redux';
 import { Link } from 'react-router-dom';
 import TabsBar from '../TabsBar/TabsBar';
 import SelectedChar from '../SelectedChar/SelectedChar';
-import WepPage from '../WepPage/WepPage';
 import { withStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';

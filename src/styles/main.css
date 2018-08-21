@@ -1,5 +1,7 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 .bg { 
@@ -87,4 +89,12 @@ li a {
 li a:hover {
     text-decoration: underline;
     color: #eee;
+}
+
+.paper {
+    margin-left: 25vw;
+    margin-right: 25vw;
+    margin-top: 20vw;
+    padding-left: 17.5vw;
+    align-content: center;
 }

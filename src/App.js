@@ -15,9 +15,6 @@ import CharList from './components/CharList/CharList';
 import WepList from './components/WepList/WepList';
 import WepPage from './components/WepPage/WepPage';
 
-import Wep30 from './components/WepCats/WepCat4/Wep30';
-
-
 import './styles/main.css';
 
 const App = () => (
