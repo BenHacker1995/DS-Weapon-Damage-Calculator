@@ -50,13 +50,6 @@ class CharList extends Component {
         this.getChars();
     }
 
-    componentDidUpdate() {
-        if (!this.props.user.isLoading && this.props.user.userName === null) {
-          this.props.history.push('/char');
-          this.props.history.push( '/' );
-        }
-    }
-
     handleChange = ( key ) => event => {
         this.setState({
             char: {
@@ -96,16 +89,13 @@ class CharList extends Component {
             <div>
                 <TabsBar />
                 <SelectedChar charState={ this.props.char }/>
-                <div>
+                <div className='dropdown'>
                 { this.props.charList.map ( charState => {
                     return (
                         <ExpansionPanel key={ charState.id }>
                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                             <ExpansionPanelDetails>
                                 <Typography>{ charState.charname }</Typography>
-                            </ExpansionPanelDetails>
-                            <ExpansionPanelDetails>
-                                <Typography>ID: { charState.id }</Typography>
                             </ExpansionPanelDetails>
                             <ExpansionPanelDetails>                               
                                 <Typography>

@@ -97,3 +97,9 @@ li a:hover {
     margin-top: 20vw;
     text-align: center;
 }
+
+.dropdown {
+    margin-left: 25vw;
+    margin-right: 25vw;
+    text-align: center;
+}

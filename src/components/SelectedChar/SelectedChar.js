@@ -40,7 +40,7 @@ class SelectedChar extends Component {
 
     render() {
         return(
-            <div>
+            <div className='dropdown'>
             { this.props.char.map( selectedChar => {
             return (
                 <ExpansionPanel>
