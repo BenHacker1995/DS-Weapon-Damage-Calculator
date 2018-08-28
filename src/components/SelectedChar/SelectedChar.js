@@ -1,25 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 import CharEdit from '../CharEdit/CharEdit';
-import { withStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
-const styles = theme => ({
-    root: {
-      width: '100%',
-      flexGrow: 1,
-      marginTop: theme.spacing.unit * 3,
-    },
-    heading: {
-      fontSize: theme.typography.pxToRem(15),
-      fontWeight: theme.typography.fontWeightRegular,
-    },
-  });
 
 const mapStateToProps = ( reduxState ) => ({
     char: reduxState.wep.char,
@@ -40,7 +26,7 @@ class SelectedChar extends Component {
 
     render() {
         return(
-            <div className='dropdown'>
+            <div>
             { this.props.char.map( selectedChar => {
             return (
                 <ExpansionPanel>
@@ -75,4 +61,4 @@ class SelectedChar extends Component {
     }
 }
 
-export default compose(withStyles(styles),connect( mapStateToProps ))( SelectedChar );
+export default connect( mapStateToProps )( SelectedChar );

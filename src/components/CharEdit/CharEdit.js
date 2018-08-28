@@ -91,7 +91,6 @@ class CharEdit extends Component {
                         margin="dense"
                         label="Character Name"
                         type="Text"
-                        fullWidth
                         value={ this.state.charname }
                         onChange={ this.handleChange( 'charname' ) }
                         />
