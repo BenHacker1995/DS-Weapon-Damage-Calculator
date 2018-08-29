@@ -19,7 +19,6 @@ import './styles/main.css';
 
 const App = () => (
   <div className="bg">
-    <Header title="Dark Souls Attack Rating Calculator" />
     <Router>
       <Switch>
         <Redirect exact from="/" to="/home" />

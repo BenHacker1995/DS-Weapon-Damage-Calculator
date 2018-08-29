@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { triggerLogin, formError, clearError } from '../../redux/actions/loginActions';
+import Header from '../Header/Header';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField'
@@ -75,6 +76,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div>
+        <Header history={this.props.history}/>
         { this.renderAlert() }
         <Paper className='paper' TransitionComponent={this.TransitionUp}>
           <h1>Login</h1>

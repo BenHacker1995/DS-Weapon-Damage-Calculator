@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import TabsBar from '../TabsBar/TabsBar';
+import Header from '../Header/Header';
 import SelectedChar from '../SelectedChar/SelectedChar';
 import { withStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -46,7 +46,7 @@ class WepPage extends Component {
     render() {
         return(
             <div>
-                <TabsBar />
+                <Header history={this.props.history} />
                 <div>
                     <SelectedChar />
                 </div>

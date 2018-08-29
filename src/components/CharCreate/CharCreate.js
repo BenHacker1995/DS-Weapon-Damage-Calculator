@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { Link } from 'react-router-dom';
+import Header from '../Header/Header';
 import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const styles = theme => ({
     root: {
@@ -75,37 +68,7 @@ class CharCreate extends Component {
     render() {
         return(
             <div>
-                <div>
-                    <AppBar position="static">
-                        <Tabs>
-                            <ExpansionPanel>
-                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                    <Typography>Characters</Typography>
-                                </ExpansionPanelSummary>
-                                <ExpansionPanelDetails disabled>
-                                    <Typography>
-                                        Create a Character
-                                    </Typography>
-                                </ExpansionPanelDetails>
-                                <ExpansionPanelDetails>
-                                    <Typography>
-                                        <Link to="/char/list">Your Characters</Link>
-                                    </Typography>
-                                </ExpansionPanelDetails>
-                            </ExpansionPanel>
-                            <ExpansionPanel>
-                                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-                                    <Typography>Weapons</Typography>
-                                </ExpansionPanelSummary>
-                                <ExpansionPanelDetails>
-                                    <Typography>
-                                        <Link to="/weps">Weapon Categories</Link>
-                                    </Typography>
-                                </ExpansionPanelDetails>
-                            </ExpansionPanel>
-                        </Tabs>
-                    </AppBar>
-                </div>
+                <Header history={this.props.history}/>
                 <form className="input">
                     <input type='text' placeholder="Character Name"
                     value={ this.state.char.charname }

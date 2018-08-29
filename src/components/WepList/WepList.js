@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Link } from 'react-router-dom';
-import TabsBar from '../TabsBar/TabsBar';
+import Header from '../Header/Header';
 import SelectedChar from '../SelectedChar/SelectedChar';
 import { withStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -91,7 +91,7 @@ class WepList extends Component {
     render() {
         return (
             <div className='background'>
-                <TabsBar />
+                <Header history={this.props.history} />
                 <div>
                     <SelectedChar />
                 </div>

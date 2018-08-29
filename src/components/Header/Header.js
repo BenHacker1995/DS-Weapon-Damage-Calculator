@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { Component } from 'react';
+import NavBar from '../NavBar/NavBar';
 
-const Header = ({ title }) => (
-  <div className="instructions">
-    <div>
-      <h1 className="lead">{ title }</h1>
-    </div>
-  </div>
-);
+class Header extends Component {
+  render() {
+    return(
+      <div className="instructions">
+        <div>
+          <h1 className="lead">Dark Souls Attack Rating Calculator</h1>
+          <NavBar history={this.props.history}/>
+        </div>
+      </div>
+    )
+  }
+}
 
 export default Header;

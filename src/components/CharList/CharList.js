@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import TabsBar from '../TabsBar/TabsBar';
+import Header from '../Header/Header';
 import SelectedChar from '../SelectedChar/SelectedChar';
 import CharEdit from '../CharEdit/CharEdit';
 import CharDelete from '../CharDelete/CharDelete';
@@ -87,7 +87,7 @@ class CharList extends Component {
     render() {
         return (
             <div>
-                <TabsBar />
+                <Header history={this.props.history}/>
                 <SelectedChar charState={ this.props.char }/>
                 <div className='dropdown'>
                 { this.props.charList.map ( charState => {
